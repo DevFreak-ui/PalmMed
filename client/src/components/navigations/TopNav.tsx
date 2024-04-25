@@ -45,7 +45,7 @@ const TopNav = () => {
                         </svg>
                         <span className="sr-only">Toggle sidebar</span>
                     </button>
-                    <h1 className="text-3xl font-semibold text-[#05070B]/93 dark:text-slate-400 p-4"> PalmMed</h1>
+                    <h1 className="text-2xl font-semibold text-[#05070B]/93 dark:text-slate-400 p-4"> PalmMed</h1>
                 </div>
 
                 <div className="flex items-center lg:order-2">
