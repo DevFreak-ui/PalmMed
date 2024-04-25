@@ -4,7 +4,11 @@ module.exports = {
     'node_modules/flowbite-react/lib/esm/**/*.js'
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'screen-50': 'calc(100vh - 11rem)',
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin')

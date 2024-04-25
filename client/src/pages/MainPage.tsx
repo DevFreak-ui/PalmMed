@@ -6,7 +6,7 @@ import { TiLightbulb } from "react-icons/ti"
 const MainPage = () => {
 
     return (
-        <section className="h-auto my-8 w-full">
+        <section className="h-screen-50 my-8 w-full">
             
             {/* Header/Welcome Message */}
 
