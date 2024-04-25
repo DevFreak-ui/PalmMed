@@ -1,6 +1,5 @@
 import SignUpForm from "../components/SignUpForm";
 import taskpulselogo from "../assets/images/logo-white.svg";
-import FeatureCard from "../components/cards/FeatureCard";
 
 const Register = () => {
   return (
@@ -13,18 +12,7 @@ const Register = () => {
           </h1>
 
           <article className="py-6 flex-col flex space-y-8">
-            <FeatureCard
-              title="Effortless Task Management"
-              description="Jumpstart your productivity with our intuitive interface and time-tracking features."
-            />
-            <FeatureCard
-              title="Customizable Access"
-              description="Manage team roles with flexible permissions, ensuring privacy and collaborative efficiency."
-            />
-            <FeatureCard
-              title="Invite People to Collaborate on Projects"
-              description="Bring your team together to track progress and achieve goals with collaborative task management."
-            />
+          
           </article>
         </div>
 
