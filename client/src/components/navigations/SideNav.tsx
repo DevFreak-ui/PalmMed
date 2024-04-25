@@ -14,13 +14,6 @@ const SideNav = () => {
       id="drawer-navigation"
     >
       <div className="py-2 px-4 h-full bg-[#F6F8FA] dark:bg-gray-800  flex flex-col justify-between">
-        <div className="">
-          <a href="#" className="mr-4 font-bold text-3xl">
-            PalmMed
-          </a>
-          <hr className="-t -gray-200 -dashed dark:-gray-700" />
-        </div>
-
         <div className=" rounded-[150px] bg-gray-300 dark:bg-gray-700 p-1 w-2/3">
           <Link
             to="/create-project"
