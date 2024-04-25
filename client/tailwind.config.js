@@ -6,6 +6,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+                inter: ['"Inter'],
+            },
       height: {
         'screen-50': 'calc(100vh - 11rem)',
       }
