@@ -6,24 +6,23 @@ const Register = () => {
   return (
     <div className="min-h-screen   bg-[url('./assets/images/register-bg.JPG')] bg-no-repeat bg-center p-2 flex items-center justify-center ">
       <section className="flex flex-col lg:flex-row w-[80%]  justify-around">
-        <div className="w-[45%] flex flex-col ">
-          <img src={taskpulselogo} alt="logo" width={97} />
+        <div className="w-[45%] flex flex-col mt-8">
           <h1 className="text-neutral-100 text-opacity-95 text-[32px] font-semibold font-['Inter'] leading-[48px] my-6">
-            Task Pulse
+            PalmMed Bot
           </h1>
 
           <article className="py-6 flex-col flex space-y-8">
             <FeatureCard
-              title="Effortless Task Management"
-              description="Jumpstart your productivity with our intuitive interface and time-tracking features."
+              title="Get a personalized risk assessment"
+              description="Quickly gauge your heart disease risk with a simple health questionnaire."
             />
             <FeatureCard
-              title="Customizable Access"
-              description="Manage team roles with flexible permissions, ensuring privacy and collaborative efficiency."
+              title="Learn about your heart health"
+              description="Discover key factors affecting your heart and tips to enhance well-being."
             />
             <FeatureCard
-              title="Invite People to Collaborate on Projects"
-              description="Bring your team together to track progress and achieve goals with collaborative task management."
+              title="Live Support"
+              description="Immediate assistance available if your assessment raises any concerns."
             />
           </article>
         </div>
