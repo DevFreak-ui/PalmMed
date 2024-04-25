@@ -7,7 +7,7 @@ import { PiMoon } from "react-icons/pi"
 const TopNav = () => {
 
     return (
-        <nav className="bg-white px-4 py-4 dark:bg-gray-800 fixed md:ml-64 h-auto left-0 right-0 top-0 z-20">
+        <nav className="bg-transparent px-4 py-4  fixed md:ml-64 h-auto left-0 right-0 top-0 z-20">
             <div className="flex flex-wrap justify-between items-center">
                 <div className="flex justify-start items-center">
                     {/* Hamburger Menu onSmall Screens */}
@@ -45,7 +45,7 @@ const TopNav = () => {
                         </svg>
                         <span className="sr-only">Toggle sidebar</span>
                     </button>
-                    <h1 className="text-3xl font-semibold text-[#05070B]/93 dark:text-slate-400 p-4"> Page Title</h1>
+                    <h1 className="text-3xl font-semibold text-[#05070B]/93 dark:text-slate-400 p-4"> PalmMed</h1>
                 </div>
 
                 <div className="flex items-center lg:order-2">
@@ -56,15 +56,7 @@ const TopNav = () => {
                         <span id="theme-toggle-dark-icon" className="hidden w-5 h-5"> <PiMoon size={20} /> </span>
                     </button>
 
-                    {/* Notifications */}
-                    <button
-                        type="button"
-                        data-dropdown-toggle="notification-dropdown"
-                        className="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-0"
-                    >
-                        <span className="sr-only">View notifications</span>
-                        <HiOutlineBell size={20}/>
-                    </button>
+                 
                     <div
                         className="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
                         id="notification-dropdown">
