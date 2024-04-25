@@ -1,6 +1,5 @@
-import SignUpForm from "../components/SignUpForm";
-import taskpulselogo from "../assets/images/logo-white.svg";
-import FeatureCard from "../components/cards/FeatureCard";
+import SignUpForm from "../components/SignUpForm"
+import FeatureCard from "../components/cards/FeatureCard"
 
 const Register = () => {
   return (

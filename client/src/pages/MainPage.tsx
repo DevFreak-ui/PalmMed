@@ -2,8 +2,26 @@ import { IoIosSend } from "react-icons/io"
 import { FaRegPenToSquare } from "react-icons/fa6"
 import { AiOutlineThunderbolt } from "react-icons/ai"
 import { TiLightbulb } from "react-icons/ti"
+import { useAppDispatch, useAppSelector } from "../hooks"
+import { openFormModal, closeFormModal } from "../redux/features/modal/modalSlice"
+import FormModal from "../components/modals/FormModal"
 
 const MainPage = () => {
+
+    const is_FormModal_Open = useAppSelector((state) => {
+        return state.modalForm.formModal_isOpen;
+    })
+
+    const dispatch = useAppDispatch()
+
+
+    const handleOpenFormModal = () => {
+        dispatch(openFormModal())
+    }
+    const handleCloseFormModal = () => {
+        dispatch(closeFormModal())
+    }
+
 
     return (
         <section className="h-screen-50 mt-8 w-full relative">
@@ -20,7 +38,7 @@ const MainPage = () => {
 
             {/* CTA Cards */}
             <div className="md:w-2/5 grid grid-cols-3 gap-4 mx-auto text-sm font-medium dark:font-normal leading-tight text-gray-600/80 dark:text-gray-200/80">
-                <div className="h-40 bg-gray-300/50 rounded-lg dark:bg-gray-800/80 p-3 relative overflow-hidden hover:drop-shadow-md cursor-pointer">
+                <div onClick={handleOpenFormModal} className="h-40 bg-gray-300/50 rounded-lg dark:bg-gray-800/80 p-3 relative overflow-hidden hover:drop-shadow-md cursor-pointer">
                     <p>Report Issue with our one time form made just for you</p>
                     <span className="absolute size-12 bg-gray-400/50 dark:bg-gray-950/50 rounded-full -right-2 -bottom-2 inline-flex justify-center items-center">
                         <AiOutlineThunderbolt size={20} />
@@ -52,7 +70,7 @@ const MainPage = () => {
                     <IoIosSend size={18} />
                 </span>
             </div>
-
+            { is_FormModal_Open && <FormModal /> }
         </section>
     )
 }
