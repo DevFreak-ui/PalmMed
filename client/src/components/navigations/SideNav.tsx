@@ -2,6 +2,7 @@ import { CiChat1 } from "react-icons/ci";
 import { HiPlusSm, HiChevronLeft } from "react-icons/hi";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { GoGear } from "react-icons/go";
+import { TiDocument } from "react-icons/ti";
 
 import { Link } from "react-router-dom";
 
@@ -100,13 +101,25 @@ const SideNav = () => {
         {/* Static Navigations */}
         <Link
           to="/"
-          className="w-10/12 mx-auto flex flex-col items-center justify-center text-sm rounded-[12px] h-4/5 bg-gray-500/30 space-y-4 text-gray-400/80">
+          className="w-10/12 mx-auto flex flex-col items-center justify-center text-sm rounded-[12px] h-[200px] bg-gray-500/30 space-y-4 text-gray-400/80">
           <span className=""> <FaRegCircleQuestion size={32} /></span>
           <p>Talk to PalmGPT</p>
         </Link>
 
         <ul className="space-y-1 my-2 ">
+         
           <li>
+            <Link
+              to="/inbox"
+              className="flex items-center p-2 text-sm text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+              <span>
+                <TiDocument size="1.1em"/>
+              </span>
+              <span className="ml-4">Docs</span>
+            </Link>
+          </li>
+           <li>
             <Link
               to="/inbox"
               className="flex items-center p-2 text-sm text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -116,7 +129,7 @@ const SideNav = () => {
               </span>
               <span className="ml-4">Settings</span>
             </Link>
-          </li>
+          </li> 
         </ul>
       </div>
 
