@@ -23,12 +23,15 @@ Usage
 To run the palmMed backend locally, use the following command:
 
 **npm start**
+
 This will start the server, and it will be accessible at http://localhost:6200.
 
 **API Documentation**
+
 The API documentation outlines the available endpoints and their functionalities. Refer to the API documentation for detailed information on how to interact with the backend API.
 
-Deployment
+**Deployment**
+
 To deploy the palmMed backend to a production environment, follow these steps:
 
 Choose a hosting provider (e.g., AWS, Heroku).
