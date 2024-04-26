@@ -1,8 +1,7 @@
 import GoogleButton from "./buttons/GoogleButton.tsx";
 import AppleButton from "./buttons/AppleButton.tsx";
 import { Link } from "react-router-dom";
-import PrimaryButton from "./buttons/PrimaryButton.tsx";
-import taskpulseLogo from "../assets/images/logo-purple.svg"
+
 
 const LoginForm = () => {
   return (
@@ -48,7 +47,7 @@ const LoginForm = () => {
             />
           </div>
           <div className="py-2">
-            <PrimaryButton buttonText="Sign In" width="100%" />
+           <button>Login</button>
           </div>
 
           <p className="text-zinc-950 text-opacity-90 text-[15px] font-light font-['Inter'] leading-snug">
