@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 
+CORS(app, resources={r"/*": {"origins": "*"}})
 # Load the trained model
 model = joblib.load("random_forest_model.joblib")
 
@@ -17,8 +21,10 @@ def read_root():
 def predict():
     data = request.get_json()
 
+    values = [int(value) for value in data.values()]
+
     try:
-        features = np.array(data["features"]).reshape(1, -1)
+        features = np.array(values).reshape(1, -1)
         prediction = model.predict(features)
         # Convert prediction to Python integer
         prediction = int(prediction[0])
