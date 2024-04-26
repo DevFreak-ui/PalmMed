@@ -1,5 +1,7 @@
 #                                                    palmMed Backend
-Welcome to the palmMed backend repository! This repository contains the code for the backend API of palmMed, a medical appointment scheduling application.
+Welcome to the palmMed backend repository! This repository contains the code for the backend API of palmMed, a user-friendly system
+with a mobile application and web interface for heart disease prediction and
+communication.
 
 **Overview**
 palmMed backend is built using Node.js and Express.js, providing RESTful API endpoints for managing users, appointments, and other functionalities related to the palmMed application.
