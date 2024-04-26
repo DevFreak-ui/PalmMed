@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { User as UserSchema } from "../models/User";
+import { User as UserSchema } from "../Models/User";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "../types";
 
@@ -30,5 +30,6 @@ const auth = async (req: ReqTyp, res: Response, next: NextFunction) => {
         next(error)
     }
 }
+
 
 export default auth;

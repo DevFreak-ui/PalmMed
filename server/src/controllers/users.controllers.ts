@@ -8,15 +8,12 @@ import {
   validateUserRegistration,
   validateUserPasswordReset,
   validateUserPasswordDetails,
-} from "../models/User";
+} from "../Models/User";
 import AppMail from "../services/mail/mail";
 
 export const createUser = async (req: Request, res: Response) => {
   const { error } = validateUserRegistration(req.body);
-  if (error)
-    return res
-      .status(400)
-      .json({ status: "failed", message: error.details[0].message });
+  if (error) return res.status(400).json({ status: "failed", message: error.details[0].message });
 
   const userExists = Boolean(
     await User.findOne({
@@ -46,11 +43,13 @@ export const createUser = async (req: Request, res: Response) => {
 
   user.password = "";
 
-  res.status(201).json({
-    status: "success",
-    message: "Successfully created a new user",
-    data: user,
-  });
+  res
+    .status(201)
+    .json({
+      status: "success",
+      message: "Successfully created a new user",
+      data: user,
+    });
 };
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
@@ -62,21 +61,15 @@ export const login = async (req: Request, res: Response) => {
 
   const user = await User.findOne({ email: req.body.email });
   if (!user)
-    return res
-      .status(404)
-      .json({ status: "failed", message: "Invalid email or password." });
+    return res.status(404).json({status: "failed", message: "Invalid email or password." });
 
   const passwordValid = await bcrypt.compare(req.body.password, user.password);
   if (!passwordValid)
-    return res
-      .status(400)
-      .json({ status: "failed", message: "Invalid email or password." });
+    return res.status(400).json({ status: "failed", message: "Invalid email or password." });
 
   const token = jwt.sign({ _id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
 
-  res
-    .status(200)
-    .json({ status: "success", message: "Successfully logged in", token });
+  res.status(200).json({ status: "success", message: "Successfully logged in", token });
 };
 
 const generateResetToken = () => {
