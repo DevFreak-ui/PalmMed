@@ -1,8 +1,10 @@
-#                                                    palmMed Backend
-Welcome to the palmMed backend repository! This repository contains the code for the backend API of palmMed, a medical appointment scheduling application.
+#                                                    palmMed 
+Welcome to the palmMed  repository! This repository contains the code for the  API of palmMed, a user-friendly system
+with a mobile application and web interface for heart disease prediction and
+communication.
 
 **Overview**
-palmMed backend is built using Node.js and Express.js, providing RESTful API endpoints for managing users, appointments, and other functionalities related to the palmMed application.
+palmMed is built using Node.js, react, ai/data-analysis, ml, llm, flutter and  Express.js, providing RESTful API endpoints for managing users, appointments, and other functionalities related to the palmMed application.
 
 ## Features
 - User authentication (signup, login)
@@ -23,12 +25,15 @@ Usage
 To run the palmMed backend locally, use the following command:
 
 **npm start**
+
 This will start the server, and it will be accessible at http://localhost:6200.
 
 **API Documentation**
+
 The API documentation outlines the available endpoints and their functionalities. Refer to the API documentation for detailed information on how to interact with the backend API.
 
-Deployment
+**Deployment**
+
 To deploy the palmMed backend to a production environment, follow these steps:
 
 Choose a hosting provider (e.g., AWS, Heroku).
@@ -39,14 +44,14 @@ Obtain the endpoint URL and share it with the frontend team for integration.
 For detailed deployment instructions, refer to the Deployment Guide.
 
 Contributors
-ALEX ADAM
-PRINCE MIREKU
-ANDREWS
-EDMON
-EMMANUEL
-VICTORIA
-SAMUEL
-ENOCH
-GIBRIL
-DAVID
-NATHAN
+- ALEX ADAM
+- PRINCE MIREKU
+- ANDREWS
+- EDMON
+- EMMANUEL
+- VICTORIA
+- SAMUEL
+- ENOCH
+- GIBRIL
+- DAVID
+- NATHAN
