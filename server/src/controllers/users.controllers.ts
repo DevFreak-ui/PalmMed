@@ -7,8 +7,8 @@ import {
   validateUserLogin,
   validateUserRegistration,
   validateUserPasswordReset,
-  validateUserPasswordDetails,
-} from "../Models/User";
+  validateUserPasswordDetails
+} from '../Models/User';
 import AppMail from "../services/mail/mail";
 import { IUser } from "../../shared/user";
 interface CustomRequest extends Request {
@@ -17,10 +17,7 @@ interface CustomRequest extends Request {
 
 export const createUser = async (req: Request, res: Response) => {
   const { error } = validateUserRegistration(req.body);
-  if (error)
-    return res
-      .status(400)
-      .json({ status: "failed", message: error.details[0].message });
+  if (error) return res.status(400).json({ status: "failed", message: error.details[0].message });
 
   const userExists = Boolean(
     await User.findOne({
@@ -50,13 +47,7 @@ export const createUser = async (req: Request, res: Response) => {
 
   user.password = "";
 
-  res.json({ message: "User registerd", user });
-
-  res.status(201).json({
-    status: "success",
-    message: "Successfully created a new user",
-    data: user,
-  });
+  res.json({ message: 'User registerd', user });
 };
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
@@ -68,19 +59,15 @@ export const login = async (req: Request, res: Response) => {
 
   const user = await User.findOne({ email: req.body.email });
   if (!user)
-    return res.status(404).json({ message: "Invalid email or password." });
+    return res.status(404).json({status: "failed", message: "Invalid email or password." });
 
   const passwordValid = await bcrypt.compare(req.body.password, user.password);
   if (!passwordValid)
-    return res.status(400).json({ message: "Invalid email or password." });
+    return res.status(400).json({ status: "failed", message: "Invalid email or password." });
 
-  const token = jwt.sign({ _id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
+  const token = jwt.sign({id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
 
-  res.json({ message: "You are logged in.", token });
-
-  return res
-    .status(404)
-    .json({ status: "failed", message: "Invalid email or password." });
+  res.status(200).json({ status: "success", message: "Successfully logged in", token });
 };
 
 const generateResetToken = () => {
@@ -192,4 +179,22 @@ export const resetPassword = async (
   } catch (error) {
     next(error);
   }
+}
+
+
+export const findMe = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const user = req.user;
+    if(!user) {
+      return res.status(200).json({message: "successful", user})
+    }
+    res.status(200).json({
+      message: " success",
+      user
+    })
+    
+  } catch (error) {
+    next(error);
+  }
 };
+

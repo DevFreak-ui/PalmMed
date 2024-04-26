@@ -7,8 +7,10 @@ import { rateLimit } from "express-rate-limit";
 import { DBCONNECTION } from "./connection/connection";
 import { options as swaggerJsDocsOptions } from "./options";
 
-import users from "./routes/users.route";
+import users from "./routes/users.routes";
 import appHealth from "./routes/health.routes";
+import chats from "./routes/chat.routes";
+import messages from "./routes/message.routes";
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 app.use("/api/v1/health", appHealth);
 app.use("/api/v1/users", users);
+app.use("/api/v1/chats", chats);
+app.use("/api/v1/messages", messages);
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   res.send(`cannot find ${req.originalUrl} on this server`).status(404);
