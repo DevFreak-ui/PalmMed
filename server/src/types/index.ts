@@ -8,3 +8,8 @@ export interface User {
   tokenExpiration?: number;
 }
 
+export interface Message {
+  message: string;
+  type: string;
+}
+

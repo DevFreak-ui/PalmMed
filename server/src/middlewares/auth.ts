@@ -3,9 +3,8 @@ import { User as UserSchema } from "../Models/User";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "../types";
 
-
 interface ReqTyp extends Request {
-    user : any 
+  user: any;
 }
 
 const auth = async (req: any, res: Response, next: NextFunction) => {
