@@ -100,7 +100,7 @@ const SideNav = () => {
 
         {/* Static Navigations */}
         <Link
-          to="/"
+          to="/palm-gpt"
           className="w-10/12 mx-auto flex flex-col items-center justify-center text-sm rounded-[12px] h-[200px] bg-gray-500/30 space-y-4 text-gray-400/80">
           <span className=""> <FaRegCircleQuestion size={32} /></span>
           <p>Talk to PalmGPT</p>
