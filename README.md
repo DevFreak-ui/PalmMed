@@ -16,15 +16,16 @@ Clone this repository to your local machine.
 Navigate to the project directory.
 Install dependencies using npm:
 
-npm install
+**npm install**
+
 Create a .env file in the root directory and configure environment variables as needed. You can use the provided .env.example file as a template.
 Usage
 To run the palmMed backend locally, use the following command:
 
-npm start
+**npm start**
 This will start the server, and it will be accessible at http://localhost:6200.
 
-API Documentation
+**API Documentation**
 The API documentation outlines the available endpoints and their functionalities. Refer to the API documentation for detailed information on how to interact with the backend API.
 
 Deployment
@@ -44,5 +45,8 @@ ANDREWS
 EDMON
 EMMANUEL
 VICTORIA
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+SAMUEL
+ENOCH
+GIBRIL
+DAVID
+NATHAN
