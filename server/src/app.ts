@@ -6,15 +6,17 @@ import swaggerUi from 'swagger-ui-express';
 import { rateLimit } from 'express-rate-limit';
 import { DBCONNECTION } from './connection/connection';
 import { options as swaggerJsDocsOptions } from './options';
+import cors from "cors"
 
 import users from './routes/users.routes';
 import appHealth from './routes/health.routes';
 
 
+
 dotenv.config();
 
 const app = express();
-
+app.use(cors())
 const limit = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
