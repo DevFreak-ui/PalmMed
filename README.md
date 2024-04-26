@@ -12,16 +12,23 @@ pip install -r requirements.txt
 
 data.ipynb
 
+Data cleaning and Data explanation.
+
 ## Run:
 
 visuals.ipynb
+
+Visual analysis of the cleaned data using matplotlib and seaborn.
 
 ## Run:
 
 model.ipynb
 
+Model prediction using SVC, Random Forest Regression and Confusion matrix
+
 ## Run:
 python app.py
+Flask app for our backend integration
 
 # palmMed
 
@@ -84,3 +91,14 @@ Contributors
 - GIBRIL
 - DAVID
 - NATHAN
+
+  ## **PROJECT ARCHITECTURE**
+  
+![architectural Design drawio (4)](https://github.com/Bralex-svg/palmMed/assets/96666819/f2b6a906-faa1-407c-8ed2-b92075bacac3)
+
+## **USAGE GUILDELINES**
+USER in our solution is a doctor
+
+1. 
+
+1. 
