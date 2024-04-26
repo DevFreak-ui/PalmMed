@@ -36,7 +36,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
       // Send form data to the backend
       const response = await axios.post('/api/v1/register', formData);
       console.log(response.data); // Handle success response
-      
+
     } catch (error) {
       console.error('Registration failed:', error); // Handle error response
     }
@@ -130,7 +130,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
-                  Password
+                   Password
                 </label>
                 <input
                   type="password"
