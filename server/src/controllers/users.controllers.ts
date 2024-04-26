@@ -88,29 +88,27 @@ const generateResetToken = () => {
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
   return hashedToken;
 };
+
+//update use profile
 export const updateUserProfile = async (req: CustomRequest, res: Response) => {
   try {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    // Get the user ID from the authenticated user's token
     const userId = req.user._id;
 
-    // Find the user document in the database
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Update user information with data from request body
     user.firstname = req.body.firstname || user.firstname;
     user.lastname = req.body.lastname || user.lastname;
     user.email = req.body.email || user.email;
     user.imageUrl = req.body.imageUrl || user.imageUrl;
 
-    // Save the updated user document
     await user.save();
 
     res.json({ message: "Profile updated successfully", user });
