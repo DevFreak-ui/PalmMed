@@ -42,14 +42,14 @@ Obtain the endpoint URL and share it with the frontend team for integration.
 For detailed deployment instructions, refer to the Deployment Guide.
 
 Contributors
-ALEX ADAM
-PRINCE MIREKU
-ANDREWS
-EDMON
-EMMANUEL
-VICTORIA
-SAMUEL
-ENOCH
-GIBRIL
-DAVID
-NATHAN
+- ALEX ADAM
+- PRINCE MIREKU
+- ANDREWS
+- EDMON
+- EMMANUEL
+- VICTORIA
+- SAMUEL
+- ENOCH
+- GIBRIL
+- DAVID
+- NATHAN
