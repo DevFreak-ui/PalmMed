@@ -8,7 +8,7 @@ import {
   validateUserRegistration,
   validateUserPasswordReset,
   validateUserPasswordDetails
-} from '../models/User';
+} from '../Models/User';
 import AppMail from "../services/mail/mail";
 
 export const createUser = async (req: Request, res: Response) => {
@@ -44,6 +44,8 @@ export const createUser = async (req: Request, res: Response) => {
 
   res.json({ message: 'User registerd', user });
 };
+
+
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
   if (error)
@@ -59,7 +61,7 @@ export const login = async (req: Request, res: Response) => {
   if (!passwordValid)
     return res.status(400).json({ message: 'Invalid email or password.' });
 
-  const token = jwt.sign({ _id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
+  const token = jwt.sign({id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
 
   res.json({ message: 'You are logged in.', token });
 };
@@ -134,6 +136,23 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
     await userExists.save()
 
     return res.status(200).json({message: "Password reset successful"})
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+export const findMe = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const user = req.user;
+    if(!user) {
+      return res.status(200).json({message: "successful", user})
+    }
+    res.status(200).json({
+      message: " success",
+      user
+    })
+    
   } catch (error) {
     next(error)
   }

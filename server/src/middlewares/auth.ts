@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { User as UserSchema } from "../models/User";
+import { User as UserSchema } from "../Models/User";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "../types";
 
@@ -8,7 +8,7 @@ interface ReqTyp extends Request {
     user : any 
 }
 
-const auth = async (req: ReqTyp, res: Response, next: NextFunction) => {
+const auth = async (req: any, res: Response, next: NextFunction) => {
     let token: any;
 
     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
@@ -19,8 +19,10 @@ const auth = async (req: ReqTyp, res: Response, next: NextFunction) => {
         const decode = jwt.verify(token, `${process.env.JWT_PRIVATE_KEY}`) as JwtPayload
         if(!decode) return res.status(401).json({message: "unauthorized access"})
 
-        const user = await UserSchema.findById(decode)
+        const user = await UserSchema.findById(decode.id)
         if(!user) return res.status(404).json({message: "no user found"})
+
+        console.log(decode);
 
         //assign user to request
         req.user = user;
