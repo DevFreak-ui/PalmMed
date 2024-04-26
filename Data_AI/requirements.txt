@@ -1,6 +1,6 @@
 pandas
 seaborn
-Scikit-learn
+scikit-learn==1.2.2
 xgboost
 matplotlib
 flask 
