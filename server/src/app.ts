@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import { rateLimit } from "express-rate-limit";
 import { DBCONNECTION } from "./connection/connection";
 import { options as swaggerJsDocsOptions } from "./options";
+import cors from "cors"
 
 import users from "./routes/users.routes";
 import appHealth from "./routes/health.routes";
@@ -16,14 +17,16 @@ dotenv.config();
 
 const app = express();
 
-const limit = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: "too many request from this IP",
-});
+app.use(cors())
+
+// const limit = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message: "too many request from this IP",
+// });
 const swaggerSpecs = swaggerJsDocs(swaggerJsDocsOptions);
 
-app.use("/api", limit);
+// app.use("/api", limit);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: false }));
