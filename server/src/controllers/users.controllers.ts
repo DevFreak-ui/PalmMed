@@ -8,15 +8,16 @@ import {
   validateUserRegistration,
   validateUserPasswordReset,
   validateUserPasswordDetails,
-} from "../models/User";
+} from "../Models/User";
 import AppMail from "../services/mail/mail";
+import { IUser } from "../../shared/user";
+interface CustomRequest extends Request {
+  user?: IUser;
+}
 
 export const createUser = async (req: Request, res: Response) => {
   const { error } = validateUserRegistration(req.body);
-  if (error)
-    return res
-      .status(400)
-      .json({ status: "failed", message: error.details[0].message });
+  if (error) return res.status(400).json({ status: "failed", message: error.details[0].message });
 
   const userExists = Boolean(
     await User.findOne({
@@ -46,11 +47,15 @@ export const createUser = async (req: Request, res: Response) => {
 
   user.password = "";
 
-  res.status(201).json({
-    status: "success",
-    message: "Successfully created a new user",
-    data: user,
-  });
+  res.json({ message: "User registerd", user });
+
+  res
+    .status(201)
+    .json({
+      status: "success",
+      message: "Successfully created a new user",
+      data: user,
+    });
 };
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
@@ -62,21 +67,15 @@ export const login = async (req: Request, res: Response) => {
 
   const user = await User.findOne({ email: req.body.email });
   if (!user)
-    return res
-      .status(404)
-      .json({ status: "failed", message: "Invalid email or password." });
+    return res.status(404).json({status: "failed", message: "Invalid email or password." });
 
   const passwordValid = await bcrypt.compare(req.body.password, user.password);
   if (!passwordValid)
-    return res
-      .status(400)
-      .json({ status: "failed", message: "Invalid email or password." });
+    return res.status(400).json({ status: "failed", message: "Invalid email or password." });
 
   const token = jwt.sign({ _id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
 
-  res
-    .status(200)
-    .json({ status: "success", message: "Successfully logged in", token });
+  res.status(200).json({ status: "success", message: "Successfully logged in", token });
 };
 
 const generateResetToken = () => {
@@ -84,7 +83,37 @@ const generateResetToken = () => {
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
   return hashedToken;
 };
+export const updateUserProfile = async (req: CustomRequest, res: Response) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
 
+    // Get the user ID from the authenticated user's token
+    const userId = req.user._id;
+
+    // Find the user document in the database
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update user information with data from request body
+    user.firstname = req.body.firstname || user.firstname;
+    user.lastname = req.body.lastname || user.lastname;
+    user.email = req.body.email || user.email;
+    user.imageUrl = req.body.imageUrl || user.imageUrl;
+
+    // Save the updated user document
+    await user.save();
+
+    res.json({ message: "Profile updated successfully", user });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+};
 export const forgotPassword = async (req: Request, res: Response) => {
   const { email } = req.body;
   const { error } = validateUserPasswordReset(req.body);
