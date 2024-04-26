@@ -1,4 +1,4 @@
-#                                                    palmMed Backend
+#                                                    palmMed 
 Welcome to the palmMed backend repository! This repository contains the code for the backend API of palmMed, a user-friendly system
 with a mobile application and web interface for heart disease prediction and
 communication.
