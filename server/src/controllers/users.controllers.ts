@@ -9,7 +9,6 @@ import {
   validateUserPasswordReset,
   validateUserPasswordDetails,
 } from "../Models/User";
-} from "../Models/User";
 import AppMail from "../services/mail/mail";
 import { IUser } from "../../shared/user";
 interface CustomRequest extends Request {
