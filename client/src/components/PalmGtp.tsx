@@ -19,19 +19,21 @@ const PalmGPTChat: React.FC = () => {
         if (!userInput.trim()) return;
         const newMessage = { sender: 'user', message: userInput };
         setChatHistory([...chatHistory, newMessage]);
+        const postData = {
+            message: userInput,
+            chat_id: "662bd92cef5577d422063528",
+            from: "User"
+          };
+
+        console.log(userInput)
 
         try {
             setLoading(true);
-            const response = await axios({
-                method: 'post',
-                url: `https://7588-41-66-228-33.ngrok-free.app/api/v1/llm/chat?question=${encodeURIComponent(userInput)}`,
-                maxBodyLength: Infinity,
-                headers: {
-                    // Add headers here if necessary, e.g., Authorization
-                }
-            });
+            const response = await axios.post('http://localhost:6200/api/v1/messages/initiate-message', postData);
+            console.log(response.data)
             setLoading(false);
-            setChatHistory(history => [...history, { sender: 'bot', message: response.data.answer }]);
+            // setChatHistory(history => [...history, { sender: 'bot', message: response.data.aiMessage.message }]);
+            //console.log(response.data)
         } catch (error) {
             setLoading(false);
             console.error('Error fetching response:', error);
@@ -62,6 +64,8 @@ const PalmGPTChat: React.FC = () => {
         doc.save('PalmGPT-history.pdf');
     };
 
+
+    // console.log(chatHistory)
     return (
         <div className="w-4/5 min-h-screen mx-auto my-8 space-y-12">
 

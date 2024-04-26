@@ -7,7 +7,7 @@ import auth from "../middlewares/auth";
 
 const router = express.Router();
 
-router.post("/initiate-message", auth, initiateMessage);
-router.post("/retrieve-chat-messages", auth, retrieveChatMessages);
+router.post("/initiate-message", initiateMessage);
+router.post("/retrieve-chat-messages", retrieveChatMessages);
 
 export default router;

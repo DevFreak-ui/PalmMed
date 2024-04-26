@@ -8,8 +8,8 @@ import auth from "../middlewares/auth";
 
 const router = express.Router();
 
-router.post("/initiate-chat", auth, initiateChat);
-router.post("/get-chat-history", auth, getChatHistory);
-router.delete("/clear-chat", auth, clearChat);
+router.post("/initiate-chat", initiateChat);
+router.post("/get-chat-history",  getChatHistory);
+router.delete("/clear-chat",  clearChat);
 
 export default router;
