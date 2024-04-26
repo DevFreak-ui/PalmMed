@@ -27,7 +27,6 @@ const MainPage = () => {
     }
 
     const handleFormSubmission = () => {
-        alert('Hi')
         setChatInitiated(false)
     }
 
