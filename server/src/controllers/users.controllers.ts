@@ -17,7 +17,10 @@ interface CustomRequest extends Request {
 
 export const createUser = async (req: Request, res: Response) => {
   const { error } = validateUserRegistration(req.body);
-  if (error) return res.status(400).json({ message: error.details[0].message });
+  if (error)
+    return res
+      .status(400)
+      .json({ status: "failed", message: error.details[0].message });
 
   const userExists = Boolean(
     await User.findOne({
@@ -27,6 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
 
   if (userExists)
     return res.status(400).json({
+      status: "failed",
       message: "Email is already taken",
     });
 
@@ -47,11 +51,18 @@ export const createUser = async (req: Request, res: Response) => {
   user.password = "";
 
   res.json({ message: "User registerd", user });
+
+  res.status(201).json({
+    status: "success",
+    message: "Successfully created a new user",
+    data: user,
+  });
 };
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
   if (error)
     return res.status(400).json({
+      status: "failed",
       message: error.details[0].message,
     });
 
@@ -66,6 +77,10 @@ export const login = async (req: Request, res: Response) => {
   const token = jwt.sign({ _id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
 
   res.json({ message: "You are logged in.", token });
+
+  return res
+    .status(404)
+    .json({ status: "failed", message: "Invalid email or password." });
 };
 
 const generateResetToken = () => {
