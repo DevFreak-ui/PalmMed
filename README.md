@@ -95,7 +95,7 @@ Contributors
 
   ## **PROJECT ARCHITECTURE**
   
-![architectural Design drawio (4)](https://github.com/Bralex-svg/palmMed/assets/96666819/f2b6a906-faa1-407c-8ed2-b92075bacac3)
+
 
 ## **USAGE GUILDELINES**
 USER in our solution is a doctor
