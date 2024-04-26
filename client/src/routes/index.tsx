@@ -4,6 +4,7 @@ import Register from "../pages/RegisterPage"
 import MainContainer from "../pages/Container"
 import MainPage from "../pages/MainPage"
 import ErrorPage from "../pages/ErrorPage"
+import PalmGPTChat from "../components/PalmGtp"
 
 const AppRoutes = () => {
 	return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
 
 				<Route path="/" element={<MainContainer />} >
 					<Route index element={<MainPage />} />
+					<Route path="/palm-gpt" element={<PalmGPTChat />} />
 
 				</Route>
 				
