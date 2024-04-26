@@ -9,8 +9,6 @@ import {
   validateUserPasswordReset,
   validateUserPasswordDetails
 } from '../Models/User';
-  validateUserPasswordDetails,
-} from "../Models/User";
 import AppMail from "../services/mail/mail";
 import { IUser } from "../../shared/user";
 interface CustomRequest extends Request {
@@ -202,19 +200,3 @@ export const findMe = async (req: any, res: Response, next: NextFunction) => {
   }
 };
 
-
-export const findMe = async (req: any, res: Response, next: NextFunction) => {
-  try {
-    const user = req.user;
-    if(!user) {
-      return res.status(200).json({message: "successful", user})
-    }
-    res.status(200).json({
-      message: " success",
-      user
-    })
-    
-  } catch (error) {
-    next(error)
-  }
-}
