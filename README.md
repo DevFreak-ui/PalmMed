@@ -28,6 +28,7 @@ Model prediction using SVC, Random Forest Regression and Confusion matrix
 
 ## Run:
 python app.py
+
 Flask app for our backend integration
 
 # palmMed
