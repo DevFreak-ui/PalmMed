@@ -20,7 +20,6 @@ const auth = async (req: any, res: Response, next: NextFunction) => {
         const user = await UserSchema.findById(decode.id)
         if(!user) return res.status(404).json({message: "no user found"})
 
-        console.log(decode);
 
         //assign user to request
         req.user = user;
