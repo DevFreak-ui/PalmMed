@@ -224,11 +224,11 @@ const FormModal = () => {
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
                     <label htmlFor="thal" className="block text-sm font-medium text-gray-900 dark:text-white">
-                      Thalassemia
+                      Thallium
                     </label>
                     <button data-tooltip-target="tooltip-thal" data-tooltip-placement="right"  className="text-gray-500"><FaCircleInfo size={15}/></button>
                     <div id="tooltip-thal" role="tooltip" className="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Tooltip on Thal
+                        Tooltip on Thallium
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
@@ -236,6 +236,23 @@ const FormModal = () => {
                     <option value="0">Normal</option>
                     <option value="1">Fixed Defect</option>
                     <option value="2">Reversible Defect</option>
+                  </select>
+              </div>
+              <div>
+                  <span className="inline-flex space-x-2 items-center mb-2">
+                    <label htmlFor="mvcf" className="block text-sm font-medium text-gray-900 dark:text-white">
+                      Major vessels colored by fluoroscopy
+                    </label>
+                    <button data-tooltip-target="tooltip-mvcf" data-tooltip-placement="right"  className="text-gray-500"><FaCircleInfo size={15}/></button>
+                    <div id="tooltip-mvcf" role="tooltip" className="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Tooltip on fluoroscopy
+                        <div className="tooltip-arrow" data-popper-arrow></div>
+                    </div>
+                  </span>
+                  <select id="mvcf" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
                   </select>
               </div>
               <div className="flex items-start mb-5 px-1 pb-1">

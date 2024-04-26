@@ -7,6 +7,7 @@ import { openFormModal, closeFormModal } from "../redux/features/modal/modalSlic
 import FormModal from "../components/modals/FormModal"
 import { useState } from "react"
 import Chat from "../components/Chat"
+import { Link } from "react-router-dom"
 
 const MainPage = () => {
 
@@ -27,7 +28,6 @@ const MainPage = () => {
     }
 
     const handleFormSubmission = () => {
-        alert('Hi')
         setChatInitiated(false)
     }
 
@@ -54,15 +54,17 @@ const MainPage = () => {
                                 <AiOutlineThunderbolt size={20} />
                             </span>
                         </div>
-                        <div className="h-40 bg-gray-300/50 rounded-lg dark:bg-gray-800/80 p-3 relative overflow-hidden hover:drop-shadow-md cursor-pointer">
+                        <Link 
+                            to="/palm-gpt"
+                            className="h-40 bg-gray-300/50 rounded-lg dark:bg-gray-800/80 p-3 relative overflow-hidden hover:drop-shadow-md cursor-pointer">
                             <p>
                                 Need Help?
-                                Contact One of our developers for Live Assistance
+                                Ask any question with our task specific trained GPT, PalmGPT
                             </p>
                             <span className="absolute size-12 bg-gray-400/50 dark:bg-gray-950/50 rounded-full -right-2 -bottom-2 inline-flex justify-center items-center">
                                 <TiLightbulb size={20} />
                             </span>
-                        </div>
+                        </Link>
                         <div className="h-40 bg-gray-300/50 rounded-lg dark:bg-gray-800/80 p-3 relative overflow-hidden hover:drop-shadow-md cursor-pointer">
                             <p>Explore our docs. Get insights from the development perspective</p>
                             <span className="absolute size-12 bg-gray-400/50 dark:bg-gray-950/50 rounded-full -right-2 -bottom-2 inline-flex justify-center items-center">

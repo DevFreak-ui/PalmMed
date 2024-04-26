@@ -7,8 +7,8 @@ import {
   validateUserLogin,
   validateUserRegistration,
   validateUserPasswordReset,
-  validateUserPasswordDetails,
-} from "../Models/User";
+  validateUserPasswordDetails
+} from '../Models/User';
 import AppMail from "../services/mail/mail";
 import { IUser } from "../../shared/user";
 interface CustomRequest extends Request {
@@ -47,15 +47,7 @@ export const createUser = async (req: Request, res: Response) => {
 
   user.password = "";
 
-  res.json({ message: "User registerd", user });
-
-  res
-    .status(201)
-    .json({
-      status: "success",
-      message: "Successfully created a new user",
-      data: user,
-    });
+  res.json({ message: 'User registerd', user });
 };
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
@@ -73,7 +65,7 @@ export const login = async (req: Request, res: Response) => {
   if (!passwordValid)
     return res.status(400).json({ status: "failed", message: "Invalid email or password." });
 
-  const token = jwt.sign({ _id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
+  const token = jwt.sign({id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
 
   res.status(200).json({ status: "success", message: "Successfully logged in", token });
 };
@@ -83,29 +75,27 @@ const generateResetToken = () => {
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
   return hashedToken;
 };
+
+//update use profile
 export const updateUserProfile = async (req: CustomRequest, res: Response) => {
   try {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    // Get the user ID from the authenticated user's token
     const userId = req.user._id;
 
-    // Find the user document in the database
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Update user information with data from request body
     user.firstname = req.body.firstname || user.firstname;
     user.lastname = req.body.lastname || user.lastname;
     user.email = req.body.email || user.email;
     user.imageUrl = req.body.imageUrl || user.imageUrl;
 
-    // Save the updated user document
     await user.save();
 
     res.json({ message: "Profile updated successfully", user });
@@ -189,4 +179,22 @@ export const resetPassword = async (
   } catch (error) {
     next(error);
   }
+}
+
+
+export const findMe = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const user = req.user;
+    if(!user) {
+      return res.status(200).json({message: "successful", user})
+    }
+    res.status(200).json({
+      message: " success",
+      user
+    })
+    
+  } catch (error) {
+    next(error);
+  }
 };
+

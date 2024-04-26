@@ -1,22 +1,27 @@
 # Data Analysis
 
-First:
-cd Dash-Plotly
+## First:
 
-Run:
+cd Data & AI
+
+## Run:
+
 pip install -r requirements.txt
 
-Run:
+## Run:
+
 data.ipynb
 
-Run:
+## Run:
+
 visuals.ipynb
 
-Run:
+## Run:
+
 model.ipynb
 
-Run:
-app.py
+## Run:
+python app.py
 
 # palmMed
 
