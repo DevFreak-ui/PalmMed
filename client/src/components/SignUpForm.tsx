@@ -20,6 +20,38 @@ const SignUpForm = () => {
         </div>
 
         <form className="space-y-4 md:space-y-4" action="#">
+        <div className="flex space-x-4">
+            <div className=" w-1/2">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 "
+              >
+                First Name
+              </label>
+              <input
+                type="text"
+                className="   text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3.5 bg-gray-200  placeholder-gray-400  focus:ring-purple-500 focus:border-purple-500"
+                placeholder="John"
+                required
+              />
+            </div>
+            <div className=" w-1/2">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Surname
+              </label>
+              <input
+                type="text"
+                name="surname"
+                id="surname"
+                className="   text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3.5 bg-gray-200  placeholder-gray-400  focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Doe"
+                required
+              />
+            </div>
+          </div>
           <div>
             <label
               htmlFor="email"
@@ -47,22 +79,6 @@ const SignUpForm = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="••••••••"
-              className="text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3.5 bg-gray-200  placeholder-gray-400  focus:ring-purple-500 focus:border-purple-500"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="confirm-password"
-              className="block mb-2 text-sm font-medium text-gray-900 "
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              name="confirm-password"
-              id="confirm-password"
               placeholder="••••••••"
               className="text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3.5 bg-gray-200  placeholder-gray-400  focus:ring-purple-500 focus:border-purple-500"
               required

@@ -12,7 +12,7 @@ const LoginForm = () => {
           Sign In to Your Account
         </h1>
 
-        <img src={taskpulseLogo} alt="logo" className="mx-auto" />
+        {/* <p className="font-bold text-center text-xl">PalmMed</p> */}
 
         <form className="space-y-4 md:space-y-4" action="#">
           <div>
