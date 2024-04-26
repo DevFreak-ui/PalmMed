@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         } else {
-            console.error('One or more elements are missing! Retrying...');
-            setTimeout(setupThemeToggle, 100);  // Retry after 100ms
+            // console.error('One or more elements are missing! Retrying...');
+            // setTimeout(setupThemeToggle, 100);  // Retry after 100ms
         }
     }
 

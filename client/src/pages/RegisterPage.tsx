@@ -1,18 +1,25 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-    import axios from 'axios'; // Import axios for making HTTP requests
-  import { Link } from 'react-router-dom';
-  import FeatureCard from '../components/cards/FeatureCard';
-  import GoogleButton from '../components/buttons/GoogleButton.tsx';
-  import AppleButton from '../components/buttons/AppleButton.tsx';
+import axios from 'axios'; // Import axios for making HTTP requests
+import { Link } from 'react-router-dom';
+import FeatureCard from '../components/cards/FeatureCard';
+import GoogleButton from '../components/buttons/GoogleButton.tsx';
+import AppleButton from '../components/buttons/AppleButton.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
-  const Register = () => {
+
+const Register = () => {
+    
+  const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar();
+
   // State variables to capture form data
   const [formData, setFormData] = useState({
-    firstName: '',
-    surname: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
-    termsAgreed: false,
+   
   });
 
   // Handler to update form data
@@ -27,18 +34,22 @@ import { useState, ChangeEvent, FormEvent } from 'react';
     [name]: val,
   }));
 };
-  console.log(formData);
+  // console.log(formData);
 
   // Handler for form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+      console.log(formData);
     try {
       // Send form data to the backend
-      const response = await axios.post('/api/v1/register', formData);
+      const response = await axios.post('http://localhost:6200/api/v1/users/register', formData);
       console.log(response.data); // Handle success response
+      enqueueSnackbar("User Created Successfully", { variant: "success" })
+      navigate("/login")
 
     } catch (error) {
       console.error('Registration failed:', error); // Handle error response
+       enqueueSnackbar("Registration Error" , {variant:"error"})
     }
   };
   return (
@@ -88,26 +99,26 @@ import { useState, ChangeEvent, FormEvent } from 'react';
                   </label>
                   <input
                     type="text"
-                    name="firstName"
+                    name="firstname"
                     id="firstName"
                     className="text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3.5 bg-gray-200 placeholder-gray-400 focus:ring-purple-500 focus:border-purple-500"
                     placeholder="John"
-                    value={formData.firstName}
+                    value={formData.firstname}
                     onChange={handleChange}
                     required
                   />
                 </div>
                 <div className="w-1/2">
                   <label htmlFor="surname" className="block mb-2 text-sm font-medium text-gray-900">
-                    Surname
+                    Last Name
                   </label>
                   <input
                     type="text"
-                    name="surname"
+                    name="lastname"
                     id="surname"
                     className="text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3.5 bg-gray-200 placeholder-gray-400 focus:ring-purple-500 focus:border-purple-500"
                     placeholder="Doe"
-                    value={formData.surname}
+                    value={formData.lastname}
                     onChange={handleChange}
                     required
                   />
@@ -152,8 +163,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
                     type="checkbox"
                     className="w-5 h-5 border rounded focus:ring-3 bg-gray-200 border-gray-500 focus:ring-purple-600 ring-offset-purple-800"
                     name="termsAgreed"
-                    checked={formData.termsAgreed}
-                    onChange={handleChange}
+                    
                     required
                   />
                 </div>
@@ -170,7 +180,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
                   </label>
                 </div>
               </div>
-            <button>Create an Account</button>
+            <button className='p-3 rounded-xl bg-gray-400'>Create an Account</button>
               <p className="text-zinc-950 text-opacity-90 text-[15px] font-light font-['Inter'] leading-snug">
                 Already have an account?{' '}
                 <Link to="/login" className="text-violet-500 text-[15px] font-semibold font-['Inter'] leading-snug">
