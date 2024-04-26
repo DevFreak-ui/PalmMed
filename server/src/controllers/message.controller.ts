@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createMessage } from "../Service/message.service";
+import { createMessage, getChatMessages } from "../Service/message.service";
 
 
 export const initiateMessage = async (req: Request, res: Response, next: NextFunction) => {
@@ -13,3 +13,15 @@ export const initiateMessage = async (req: Request, res: Response, next: NextFun
         return next(error);
     }
   };
+
+export const retrieveChatMessages = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const results = await getChatMessages(req);
+        if(results.status !== "success"){
+            return res.status(400).json(results)
+        }
+        return res.status(200).json(results);
+    } catch (error){
+        return next(error)
+    }
+}
