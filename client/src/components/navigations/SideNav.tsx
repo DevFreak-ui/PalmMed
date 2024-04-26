@@ -1,7 +1,7 @@
 import { CiChat1 } from "react-icons/ci";
-import { BsChatSquareText } from "react-icons/bs";
 import { HiPlusSm, HiChevronLeft } from "react-icons/hi";
 import { FaRegCircleQuestion } from "react-icons/fa6";
+import { GoGear } from "react-icons/go";
 
 import { Link } from "react-router-dom";
 
@@ -98,19 +98,21 @@ const SideNav = () => {
         </ul>
 
         {/* Static Navigations */}
-        <div className="w-9/12 flex flex-col items-center justify-center text-sm rounded-[12px] h-4/5 bg-gray-500/30 space-y-4 text-gray-400/80">
+        <Link
+          to="/"
+          className="w-10/12 mx-auto flex flex-col items-center justify-center text-sm rounded-[12px] h-4/5 bg-gray-500/30 space-y-4 text-gray-400/80">
           <span className=""> <FaRegCircleQuestion size={32} /></span>
           <p>Talk to PalmGPT</p>
-        </div>
+        </Link>
 
-        <ul className="space-y-1 mt-2 mb-6 ">
+        <ul className="space-y-1 my-2 ">
           <li>
             <Link
               to="/inbox"
-              className="flex items-center p-2 text-base text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              className="flex items-center p-2 text-sm text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <span>
-                <BsChatSquareText size="1.1em" />
+                <GoGear size="1.1em" />
               </span>
               <span className="ml-4">Settings</span>
             </Link>
