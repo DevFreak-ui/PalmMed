@@ -24,11 +24,22 @@ def predict():
     values = [int(value) for value in data.values()]
 
     try:
+        # reshape features
         features = np.array(values).reshape(1, -1)
+        # obtain probability for each class
+        probabilities = model.predict_proba(features)
+        confidence_class_0 = probabilities[0][0] * 100
+        confidence_class_1 = probabilities[0][1] * 10
+
+        # obtain model prediction
         prediction = model.predict(features)
-        # Convert prediction to Python integer
-        prediction = int(prediction[0])
-        return jsonify({"prediction": prediction})
+        prediction_text = "You have heart disease" if int(
+            prediction[0]) == 1 else "You do not have heart disease"
+
+        return jsonify({
+            "prediction": prediction_text,
+            "confidence": max(confidence_class_0, confidence_class_1),
+        })
     except Exception as e:
         return jsonify({"error": str(e)})
 
