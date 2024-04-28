@@ -4,19 +4,39 @@ import path from "path";
 import fs from "fs";
 
 const resetTemplate = fs.readFileSync(path.join(__dirname, "../../views/resetPassword.hbs"),"utf-8");
+const reportTemplate = fs.readFileSync(path.join(__dirname, "../../views/reportMessage.hbs"),"utf-8");
 
 class AppMail {
-  constructor(public recipientMail: string, public recipientName?: string, public resetUrl?: string
+  constructor(
+    public recipientMail: string, 
+    public recipientName?: string, 
+    public resetUrl?: string,
+    public report?: string
   ){}
 
   private template = handlebars.compile(resetTemplate);
+  private reportTemplate = handlebars.compile(reportTemplate);
 
   //Reset Message
   private resetMessageToSend = this.template({
     recipientName: this.recipientName,
-    appName: "Task Pulse",
+    appName: "Palmed Medical Institute",
     resetUrl: this.resetUrl,
   });
+
+   //Report Message
+   private reportMessageToSend = this.reportTemplate({
+    userName: this.recipientName,
+    predictionResult : this.report,
+  });
+
+
+
+
+
+
+
+
 
 
   //creating transport
@@ -45,6 +65,10 @@ class AppMail {
 
   resetEmailMessage() {
     this.sendMail("PASSWORD RESET", this.resetMessageToSend);
+  }
+
+  reportMessage() {
+    this.sendMail("HEART DISEASE TEST RESULTS", this.reportMessageToSend);
   }
 }
 

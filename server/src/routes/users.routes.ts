@@ -1,28 +1,5 @@
-// import { updateUserProfile } from "../controllers/users.controllers";
-
-// import express from "express";
-// import {
-//   createUser,
-//   login,
-//   forgotPassword,
-//   verifyToken,
-//   resetPassword,
-// } from "../controllers/users.controllers";
-// import auth from "../middlewares/auth";
-
-// const router = express.Router();
-
-// router.post("/register", createUser);
-// router.put("/profile", auth, updateUserProfile);
-
-// router.post("/login", login);
-// router.post("/forgot-password", forgotPassword);
-// router.post("/reset-password/:token", resetPassword);
-// router.get("/verify/:token", verifyToken);
-
-// export default router;
 import express from "express";
-import { updateUserProfile } from "../controllers/users.controllers";
+import { findAll, findById, findMe, updateUserProfile } from "../controllers/users.controllers";
 import {
   createUser,
   login,
@@ -31,12 +8,71 @@ import {
   resetPassword,
 } from "../controllers/users.controllers";
 import auth from "../middlewares/auth";
+import restrictAcsessTo from "../middlewares/restrictAccessTo";
 
 const router = express.Router();
 
+
 /**
  * @swagger
- * /api/v1/register:
+ * /api/v1/users/findby/{id}:
+ *   get:
+ *     summary: Find  A User
+ *     description: Find User by id
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Find User by id
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: success
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/findby/:id", auth, restrictAcsessTo("doctor"), findById);
+
+
+
+/**
+ * @swagger
+ * /api/v1/users/find/all:
+ *   get:
+ *     summary: Find All Users
+ *     description: Find all Users
+ *     responses:
+ *       '200':
+ *         description: success
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/find/all", auth, restrictAcsessTo("doctor"), findAll);
+
+
+
+
+
+/**
+ * @swagger
+ * /api/v1/users/find/me:
+ *   get:
+ *     summary: Find Loggedin User
+ *     description: Find Loggedin User
+ *     responses:
+ *       '200':
+ *         description: success
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/find/me", auth, findMe);
+
+/**
+ * @swagger
+ * /api/v1/users/register:
  *   post:
  *     summary: Register a new user
  *     description: Creates a new user with the provided details
@@ -70,8 +106,8 @@ router.post("/register", createUser);
 
 /**
  * @swagger
- * /api/v1/profile:
- *   put:
+ * /api/v1/users/profile:
+ *   patch:
  *     summary: Update user profile
  *     description: Updates the profile information of the authenticated user
  *     security:
@@ -102,11 +138,11 @@ router.post("/register", createUser);
  *       '500':
  *         description: Internal server error
  */
-router.put("/profile", auth, updateUserProfile);
+router.patch("/profile", auth, updateUserProfile);
 
 /**
  * @swagger
- * /api/v1/login:
+ * /api/v1/users/login:
  *   post:
  *     summary: User login
  *     description: Authenticates a user with provided email and password
@@ -136,7 +172,7 @@ router.post("/login", login);
 
 /**
  * @swagger
- * /api/v1/forgot-password:
+ * /api/v1/users/forgot-password:
  *   post:
  *     summary: Forgot password
  *     description: Sends a password reset link to the provided email address
@@ -164,7 +200,7 @@ router.post("/forgot-password", forgotPassword);
 
 /**
  * @swagger
- * /api/v1/reset-password/{token}:
+ * /api/v1/users/reset-password/{token}:
  *   post:
  *     summary: Reset password
  *     description: Resets user's password using the provided reset token
@@ -198,7 +234,7 @@ router.post("/reset-password/:token", resetPassword);
 
 /**
  * @swagger
- * /api/v1/verify/{token}:
+ * /api/v1/users/verify/{token}:
  *   get:
  *     summary: Verify token
  *     description: Verifies the validity of a reset token

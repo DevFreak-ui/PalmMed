@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Prediction Results</title>
+  <style>
+    /* Add your custom styles here */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Heart Disease Test Results</h1>
+    <p>Dear {{ userName }},</p>
+    <p>We hope this email finds you well.</p>
+    <p>Following a comprehensive evaluation, we have established your cardiac health diagnosis. Here are the results:</p>
+    <p><strong>Results:</strong> {{ predictionResult }}</p>
+    <p>Please click the button below to get the full details of your assesment:</p>
+    <a href="http://localhost:5173/register" class="button">View Results Details</a>
+    <p>If you have any questions or concerns regarding your prediction result, please don't hesitate to contact us. +233 249 300 617 / +233 200 047 855</p>
+    <p>Wishing you good health,</p>
+    <p>Your Healthcare Team - Palmed Medical Institute</p>
+  </div>
+</body>
+</html>
