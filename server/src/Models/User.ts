@@ -1,12 +1,9 @@
 import mongoose, { Document } from "mongoose";
 import Joi, { ValidationResult } from "joi";
-import { User as UserInterface } from "../types";
+import { ROLE, User as UserInterface } from "../types";
 import crypto from "crypto";
-interface UserDocument extends UserInterface, Document {
-  generateResetToken: () => void;
-}
 
-const userSchema = new mongoose.Schema<UserDocument>({
+const userSchema = new mongoose.Schema<UserInterface>({
   firstname: {
     type: String,
     minlength: 3,
@@ -47,13 +44,28 @@ const userSchema = new mongoose.Schema<UserDocument>({
     required: false,
   },
 
+  role:{
+    type: String,
+    default: ROLE.user
+  },
+
   tokenExpiration: {
     type: Number,
     required: false,
   },
+
+  doctor_id: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Doctor"
+    }
+  ],
+
+  reports: [],
+
 });
 
-export const User = mongoose.model<UserDocument>("User", userSchema);
+export const User = mongoose.model<UserInterface>("User", userSchema);
 
 export const validateUserRegistration = (
   user: UserInterface

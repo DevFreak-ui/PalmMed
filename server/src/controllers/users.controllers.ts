@@ -7,10 +7,11 @@ import {
   validateUserLogin,
   validateUserRegistration,
   validateUserPasswordReset,
-  validateUserPasswordDetails,
-} from "../Models/User";
+  validateUserPasswordDetails
+} from '../Models/User';
 import AppMail from "../services/mail/mail";
 import { IUser } from "../../shared/user";
+import { Doctor } from "../Models/Doctor";
 interface CustomRequest extends Request {
   user?: IUser;
 }
@@ -47,16 +48,13 @@ export const createUser = async (req: Request, res: Response) => {
 
   user.password = "";
 
-  res.json({ message: "User registerd", user });
-
-  res
-    .status(201)
-    .json({
-      status: "success",
-      message: "Successfully created a new user",
-      data: user,
-    });
+  res.json({ message: 'User registerd', user });
 };
+
+
+
+
+
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
   if (error)
@@ -65,15 +63,21 @@ export const login = async (req: Request, res: Response) => {
       message: error.details[0].message,
     });
 
-  const user = await User.findOne({ email: req.body.email });
-  if (!user)
-    return res.status(404).json({status: "failed", message: "Invalid email or password." });
+    let user;
 
+    user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      user = await Doctor.findOne({ email: req.body.email });
+      if (!user)
+        return res.status(404).json({ status: "failed", message: "Invalid email or password." });
+    }
+  
   const passwordValid = await bcrypt.compare(req.body.password, user.password);
   if (!passwordValid)
     return res.status(400).json({ status: "failed", message: "Invalid email or password." });
 
-  const token = jwt.sign({ _id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
+  const token = jwt.sign({id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
+  // , {expiresIn: "15m"}
 
   res.status(200).json({ status: "success", message: "Successfully logged in", token });
 };
@@ -83,29 +87,32 @@ const generateResetToken = () => {
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
   return hashedToken;
 };
+
+//update use profile
 export const updateUserProfile = async (req: CustomRequest, res: Response) => {
   try {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    // Get the user ID from the authenticated user's token
-    const userId = req.user._id;
+    const userId = req.user.id;
 
-    // Find the user document in the database
-    const user = await User.findById(userId);
+    let user
+    user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      user = await Doctor.findById(userId);
+
+      if(!user){
+        return res.status(404).json({ message: "User not found" });
+      }
     }
 
-    // Update user information with data from request body
     user.firstname = req.body.firstname || user.firstname;
     user.lastname = req.body.lastname || user.lastname;
     user.email = req.body.email || user.email;
     user.imageUrl = req.body.imageUrl || user.imageUrl;
 
-    // Save the updated user document
     await user.save();
 
     res.json({ message: "Profile updated successfully", user });
@@ -114,6 +121,8 @@ export const updateUserProfile = async (req: CustomRequest, res: Response) => {
     res.status(500).json({ message: "Failed to update profile" });
   }
 };
+
+
 export const forgotPassword = async (req: Request, res: Response) => {
   const { email } = req.body;
   const { error } = validateUserPasswordReset(req.body);
@@ -186,6 +195,58 @@ export const resetPassword = async (
     await userExists.save();
 
     return res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+export const findMe = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    let user;
+    user = await User.findById(req.user.id).populate("doctor_id").exec()
+    if(!user) {
+      user = await Doctor.findById(req.user.id).populate("user_id").exec()
+      if(!user){
+        return res.status(200).json({message: "no user found", user})
+      }
+    }
+    
+    user.password = ""
+    res.status(200).json({
+      message: " success",
+      user
+    })
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+export const findAll = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const users = await User.find();
+    if (!users || users.length === 0) {
+      return res.status(400).json({ message: "No users found" });
+    }
+    return res.status(200).json({ users });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const findById = async (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "No user found with the provided ID" });
+    }
+    user.password = ""
+    return res.status(200).json({ user });
   } catch (error) {
     next(error);
   }

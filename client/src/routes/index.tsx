@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import MainPage from "../pages/MainPage"
 import ErrorPage from "../pages/ErrorPage"
+import PalmGPTChat from "../components/PalmGtp"
 import Registration from "../pages/Registration"
 import DoctorRegistration from "../pages/DoctorRegistration"
 import PatientRegistration from "../pages/PatientRegistration"
@@ -26,6 +27,7 @@ const AppRoutes = () => {
 
 				<Route path="/dashboard/patient" element={<PatientContainer />} >
 					<Route index element={<MainPage />} />
+					<Route path="/palm-gpt" element={<PalmGPTChat />} />
 				</Route>
 
 				<Route path="/dashboard/doctor" element={<DoctorContainer />} >
