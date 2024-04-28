@@ -5,8 +5,9 @@ import { TiLightbulb } from "react-icons/ti"
 import { useAppDispatch, useAppSelector } from "../hooks"
 import { openFormModal, closeFormModal } from "../redux/features/modal/modalSlice"
 import FormModal from "../components/modals/FormModal"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Chat from "../components/Chat"
+import axios from "axios"
 
 const MainPage = () => {
 
@@ -29,6 +30,18 @@ const MainPage = () => {
     const handleFormSubmission = () => {
         setChatInitiated(false)
     }
+
+    // useEffect(() => {
+    //     try {
+    //         const response = await axios.get("http://localhost:6200/api/v1/users/me");
+    //         console.log(response.data); // Handle response from the server as needed
+    //         // Redirect user or perform additional actions upon successful login
+           
+    //     } catch (error) {
+    //         console.error("Error");
+          
+    //     }
+    // }, [])
 
     return (
         <>

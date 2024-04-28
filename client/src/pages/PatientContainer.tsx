@@ -3,7 +3,7 @@ import TopNav from "../components/navigations/TopNav";
 import { Outlet } from "react-router-dom";
 
 
-const MainContainer = () => {
+const PatientContainer = () => {
   
  
 
@@ -23,4 +23,4 @@ const MainContainer = () => {
   );
 };
 
-export default MainContainer;
+export default PatientContainer;

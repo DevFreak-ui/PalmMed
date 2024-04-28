@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./features/modal/modalSlice"
+import topNavReducer from "./features/topNavbar/topNavbarSlice";
 
 const store = configureStore({
   reducer: {
-      modalForm:modalReducer
+    modalForm: modalReducer,
+    topNav:topNavReducer
   },
 });
 
