@@ -27,7 +27,7 @@ const AppRoutes = () => {
 
 				<Route path="/dashboard/patient" element={<PatientContainer />} >
 					<Route index element={<MainPage />} />
-					<Route path="/palm-gpt" element={<PalmGPTChat />} />
+					<Route path="/dashboard/patient/palm-gpt" element={<PalmGPTChat />} />
 				</Route>
 
 				<Route path="/dashboard/doctor" element={<DoctorContainer />} >
