@@ -7,6 +7,7 @@ import { rateLimit } from "express-rate-limit";
 import { DBCONNECTION } from "./connection/connection";
 import { options as swaggerJsDocsOptions } from "./options";
 import cors from "cors"
+import cors from "cors"
 
 import users from "./routes/users.routes";
 import appHealth from "./routes/health.routes";
@@ -15,10 +16,11 @@ import messages from "./routes/message.routes";
 import predictions from "./routes/predictions.routes";
 import doctors from "./routes/doctor.routes";
 
+
 dotenv.config();
 
 const app = express();
-
+app.use(cors())
 app.use(cors())
 
 // const limit = rateLimit({
