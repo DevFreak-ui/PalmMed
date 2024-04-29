@@ -100,12 +100,19 @@ const predictionSchema = new mongoose.Schema<any>({
     required: false
   },
 
-  doctor_id: [
+  doctor_id:
     {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Doctor"
     }
-  ]
+  ,
+
+  user_id: 
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }
+  
 });
 
 export const Prediction = mongoose.model<any>("Prediction", predictionSchema);
