@@ -63,7 +63,7 @@ const handleInputChange = (e) => {
 
     handleCloseFormModal()
 
-    
+
     handleOpenPredictionResultsModal()
     
 

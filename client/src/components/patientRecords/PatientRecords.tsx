@@ -16,6 +16,7 @@ import {
 } from "../../redux/features/modal/modalSlice";
 import axios from "axios";
 import { baseURL } from "../../services/baseURL";
+import PredicitonResultsModal from "../modals/PredictionResultsModal";
 
 
 const PatientRecords = () => {
@@ -37,6 +38,10 @@ const PatientRecords = () => {
     return state.modalForm.formModal_isOpen;
   });
 
+  const is_PatientPredictionResultsModal_isOpen = useAppSelector((state) => {
+    return state.modalForm.predictionResultsModal_isOpen;
+  });
+
   const is_ViewPatientDetailsModal_Open = useAppSelector((state) => {
     return state.modalForm.viewPatientDetailsModal_isOpen;
   });
@@ -50,6 +55,9 @@ const PatientRecords = () => {
     dispatch(openViewPatientDetailsModal());
   };
 
+
+
+  
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
@@ -104,6 +112,7 @@ const PatientRecords = () => {
       </table>
       {is_FormModal_Open && <FormModal />}
       {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />}
+      {is_PatientPredictionResultsModal_isOpen && <PredicitonResultsModal />}
     </div>
   );
 };
