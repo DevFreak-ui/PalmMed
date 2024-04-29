@@ -4,10 +4,11 @@ import { RiEdit2Line } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import ViewPatientDataModal from "../modals/ViewPatientDataModal";
 import { useAppDispatch,useAppSelector } from "../../hooks";
-import { openFormModal,closeFormModal } from "../../redux/features/modal/modalSlice";
+import { openFormModal,closeFormModal, openPredictionResultsModal, closePredictionResultsModal } from "../../redux/features/modal/modalSlice";
 import FormModal from "../modals/FormModal";
 import { useEffect, useState } from "react"
-import { openViewPatientDetailsModal,closeViewPatientDetailsModal } from "../../redux/features/modal/modalSlice";
+import { openViewPatientDetailsModal, closeViewPatientDetailsModal } from "../../redux/features/modal/modalSlice";
+import PredicitonResultsModal from "../modals/PredictionResultsModal";
 
 interface PatientRecordsType {
     firstname: string,
@@ -26,6 +27,10 @@ interface PatientRecordProps{
 
 const PatientRecords = ({ data }: PatientRecordProps) => {
     
+const is_PredictionResultsModal_Open = useAppSelector((state) => {
+        return state.modalForm.predictionResultsModal_isOpen
+    })
+
     const is_FormModal_Open = useAppSelector((state) => {
         return state.modalForm.formModal_isOpen;
     })
@@ -40,6 +45,10 @@ const PatientRecords = ({ data }: PatientRecordProps) => {
     const handleOpenFormModal = () => {
         dispatch(openFormModal())
     }
+    
+  const handleClosePredictionResultsModal = () => {
+    dispatch(closePredictionResultsModal());
+  }
     const handleOpenViewPatientDetailsModal = () => {
         dispatch(openViewPatientDetailsModal())
     }
@@ -85,7 +94,8 @@ const PatientRecords = ({ data }: PatientRecordProps) => {
         </tbody>
       </table>
        { is_FormModal_Open && <FormModal /> }
-       { is_ViewPatientDetailsModal_Open && <ViewPatientDataModal /> }
+      {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />}
+       {is_PredictionResultsModal_Open && <PredicitonResultsModal />}
     </div>
   );
 };

@@ -3,12 +3,14 @@ import { FaRegPenToSquare } from "react-icons/fa6"
 import { AiOutlineThunderbolt } from "react-icons/ai"
 import { TiLightbulb } from "react-icons/ti"
 import { useAppDispatch, useAppSelector } from "../hooks"
-import { openFormModal, closeFormModal } from "../redux/features/modal/modalSlice"
+import { openFormModal, closeFormModal, closePredictionResultsModal } from "../redux/features/modal/modalSlice"
 import FormModal from "../components/modals/FormModal"
 import { useEffect, useState } from "react"
 import Chat from "../components/Chat"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import PredicitonResultsModal from "../components/modals/PredictionResultsModal"
+import { openPredictionResultsModal } from "../redux/features/modal/modalSlice"
 
 const MainPage = () => {
 
@@ -17,6 +19,13 @@ const MainPage = () => {
     const is_FormModal_Open = useAppSelector((state) => {
         return state.modalForm.formModal_isOpen;
     })
+
+    const is_PredictionResultsModal_Open = useAppSelector((state) => {
+        return state.modalForm.predictionResultsModal_isOpen
+    })
+
+
+
 
     const dispatch = useAppDispatch()
 
@@ -28,21 +37,20 @@ const MainPage = () => {
         dispatch(closeFormModal())
     }
 
+    const handleOpenPredictionResultModal = () => {
+        dispatch(openPredictionResultsModal())
+    }
+    const handleClosePredictionResultModal = () => {
+        dispatch(closePredictionResultsModal())
+    }
+    
+    
+
     const handleFormSubmission = () => {
         setChatInitiated(false)
     }
 
-    // useEffect(() => {
-    //     try {
-    //         const response = await axios.get("http://localhost:6200/api/v1/users/me");
-    //         console.log(response.data); // Handle response from the server as needed
-    //         // Redirect user or perform additional actions upon successful login
-           
-    //     } catch (error) {
-    //         console.error("Error");
-          
-    //     }
-    // }, [])
+
 
     return (
         <>
@@ -104,7 +112,9 @@ const MainPage = () => {
                         </button>
                     </form>
 
-                    { is_FormModal_Open && <FormModal /> }
+                    {is_FormModal_Open && <FormModal />}
+                    {is_PredictionResultsModal_Open && <PredicitonResultsModal />}
+                    
                 </section>
             ): (
                 <Chat />
