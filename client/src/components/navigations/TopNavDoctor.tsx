@@ -1,13 +1,36 @@
-
+import { useNavigate } from "react-router-dom"
 import { HiOutlineBell } from "react-icons/hi"
 import { WiDaySunny } from "react-icons/wi"
 import { PiMoon } from "react-icons/pi"
+import { useState, useEffect } from "react"
+import { baseURL } from "../../services/baseURL"
+import axios from "axios"
 
 interface TopNavProps{
     pageTitle:string
 }
 
 const TopNavDoctor = ({pageTitle}:TopNavProps) => {
+
+const [user, setUser] = useState<any>()
+ const navigate = useNavigate()
+
+    const handleSignout = () => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("role")
+        navigate("/login/doctor")
+        
+    }
+
+  const fetchData = async () => {
+    const res = await axios.get(`${baseURL}/users/find/me`);
+    setUser(res.data.user)
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
     return (
         <nav className="bg-white px-4 py-4 dark:bg-gray-800 fixed md:ml-64 h-auto left-0 right-0 top-0 z-20">
@@ -107,10 +130,10 @@ const TopNavDoctor = ({pageTitle}:TopNavProps) => {
                         <div className="py-3 px-4">
                         <span
                             className="block text-sm font-semibold text-gray-900 dark:text-white"
-                            >Prince Mireku</span>
+                            >{user?.firstname} {user?.lastname}</span>
                         <span
                             className="block text-sm text-gray-900 truncate dark:text-white"
-                            >prince@reallygreattec.com</span>
+                            >{user?.email}</span>
                         </div>
                         <ul
                         className="py-1 text-gray-700 dark:text-gray-300"
@@ -133,7 +156,7 @@ const TopNavDoctor = ({pageTitle}:TopNavProps) => {
                         className="py-1 text-gray-700 dark:text-gray-300"
                         aria-labelledby="dropdown"
                         >
-                        <li>
+                        <li onClick={handleSignout}>
                             <a
                             href="#"
                             className="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

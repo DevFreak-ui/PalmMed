@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom"
+import { useEffect } from "react"
 import MainPage from "../pages/MainPage"
 import ErrorPage from "../pages/ErrorPage"
 import PalmGPTChat from "../components/PalmGtp"
@@ -11,9 +12,16 @@ import PatientList from "../pages/PatientList"
 import PatientReports from "../pages/PatientReports"
 import DoctorLoginPage from "../pages/DoctorLoginPage"
 import PatientLoginPage from "../pages/PatientLoginPage"
+import {setupAxiosInterceptors } from "../services/interceptors"
+import DoctorAuth from "../services/DoctorAuth";
+import Auth from "../services/RoleGuard";
 
 
 const AppRoutes = () => {
+	useEffect(() => {
+		setupAxiosInterceptors()
+	}, [])
+	
 	return (
 		<>
 			<Routes>
@@ -25,12 +33,12 @@ const AppRoutes = () => {
 				<Route path="/login/doctor" element={<DoctorLoginPage />} />
 				<Route path="/login/patient" element={<PatientLoginPage />} />
 
-				<Route path="/dashboard/patient" element={<PatientContainer />} >
+				<Route path="/dashboard/patient" element={<Auth><PatientContainer /></Auth>} >
 					<Route index element={<MainPage />} />
 					<Route path="/dashboard/patient/palm-gpt" element={<PalmGPTChat />} />
 				</Route>
 
-				<Route path="/dashboard/doctor" element={<DoctorContainer />} >
+				<Route path="/dashboard/doctor" element={<DoctorAuth><DoctorContainer /></DoctorAuth>} >
 		
 					<Route index element={<PatientList />} />
 					<Route path="/dashboard/doctor/patient-list" element={<PatientList />} />
