@@ -3,9 +3,109 @@ import { closeFormModal } from "../../redux/features/modal/modalSlice";
 import { useAppDispatch } from "../../hooks";
 import { FaCircleInfo } from "react-icons/fa6";
 import { useState } from "react";
+import axios from "axios";
 
 
 const FormModal = () => {
+
+
+
+      const [formData, setFormData] = useState({
+        age: "",
+        gender: "0",
+        cpTypes: "0",
+        rbp: "",
+        sc: "",
+        fbs: "1",
+        recg: "0",
+        mhr: "",
+        exang: "1",
+        die: "",
+        peak: "0",
+        mvcf: "0",
+        thal: "0",
+      
+      });
+
+  
+const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const val = type === 'checkbox' ? checked : value;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: val,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    
+   
+
+    
+
+    console.log(formData)
+
+
+
+
+    try {
+      const response = await axios.post("https://0f4a-104-28-239-10.ngrok-free.app/predict", formData);
+      const prediction = response.data
+      console.log(response.data);
+
+        
+     
+      
+
+      const ff = await axios.post("https://7588-41-66-228-33.ngrok-free.app/api/v1/llm/predict", prediction);
+      const resultsfinal = ff.data
+      console.log(resultsfinal);
+
+
+
+      // try {
+      //   let config = {
+      //   method: 'post',
+      //   maxBodyLength: Infinity,
+      //   url: 'https://7588-41-66-228-33.ngrok-free.app/api/v1/llm/predict',
+      //   headers: { 
+      //     'Content-Type': 'application/json'
+      //   },
+      //   data : JSON.stringify(finalData)
+      //   };
+      //           axios.request(config)
+      //   .then((response) => {
+      //     console.log(JSON.stringify(response.data));
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+    
+    } catch (error) {
+      console.error("Error", error);
+   
+      // Handle login failure, show error message to the user, etc.
+    }
+    // try {
+    //   const response = await axios.post(
+    //     "https://0f4a-104-28-239-10.ngrok-free.app/predict",
+    //     formData
+    //   );
+    //   console.log(response.data);
+    //   // Handle success response
+    // } catch (error) {
+    //   console.error("Prediction failed:", error);
+    //   // Handle error
+    // }
+
+   
+    
+// console.log(formDataArray);
+
+  };
+
 
   const dispatch = useAppDispatch();
 
@@ -69,18 +169,18 @@ const FormModal = () => {
           </div>
 
           {/* Modal Form Starts */}
-          <form action="#" className="mt-4">
+          <form action="#" className="mt-4" onSubmit={handleSubmit} >
             <div className="overflow-y-auto max-h-96 space-y-3 pr-5">
               <div className="flex space-x-4">
                 <div className="w-1/2">
                   <label htmlFor="age" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-                  <input type="number" id="age" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="34" required />
+                  <input value={formData.age} onChange={handleInputChange} type="number" name="age" id="age" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="34" required />
                 </div>
                 <div className="w-1/2">
                     <label htmlFor="gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                    <select id="gender" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option value="m">Male</option>
-                      <option value="fm">Female</option>
+                    <select onChange={handleInputChange} value={formData.gender} name="gender" id="gender" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option value="0">Male</option>
+                      <option value="1">Female</option>
                     </select>
                 </div>
               </div>
@@ -95,7 +195,7 @@ const FormModal = () => {
                           <div className="tooltip-arrow" data-popper-arrow></div>
                       </div>
                     </span>
-                    <select id="cp-types" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select onChange={handleInputChange} value={formData.cpTypes} name="cpTypes" id="cp-types" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option value="0">Typical Angina</option>
                       <option value="1">Atypical Angina</option>
                       <option value="2">Non-Anginal pain</option>
@@ -113,7 +213,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input type="number" id="rbp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mmHg)" required />
+                  <input onChange={handleInputChange} value={formData.rbp} name="rbp" type="number" id="rbp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mmHg)" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -126,7 +226,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input type="number" id="sc" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mg/dl)" required />
+                  <input onChange={handleInputChange} value={formData.sc} name="sc" type="number" id="sc" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mg/dl)" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -139,7 +239,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select id="fbs" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.fbs} name="fbs" id="fbs" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected>above 120mg/dl</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -156,7 +256,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select id="recg" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.recg} name="recg" id="recg" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">Normal</option>
                     <option value="1">Having ST-T Wave Abnormality</option>
                     <option value="2">Left Ventricular Hypothrophy</option>
@@ -173,7 +273,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input type="number" id="mhr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
+                  <input onChange={handleInputChange} value={formData.mhr} name="mhr" type="number" id="mhr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -186,7 +286,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select id="exang" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.exang} name="exang" id="exang" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -202,7 +302,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input type="number" id="die" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
+                  <input onChange={handleInputChange} value={formData.die} name="die" type="number" id="die" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -215,7 +315,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select id="peak" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.peak} name="peak" id="peak" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">Upsloping</option>
                     <option value="1">Flat</option>
                     <option value="2">Downsloping</option>
@@ -232,7 +332,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select id="thal" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select  onChange={handleInputChange} value={formData.thal} name="thal" id="thal" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">Normal</option>
                     <option value="1">Fixed Defect</option>
                     <option value="2">Reversible Defect</option>
@@ -249,7 +349,7 @@ const FormModal = () => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select id="mvcf" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.mvcf} name="mvcf" id="mvcf" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>

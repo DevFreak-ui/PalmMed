@@ -7,7 +7,7 @@ import axios from "axios"; // Import axios for making HTTP requests
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-const Login = () => {
+const DoctorLoginPage = () => {
 
 const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar();
@@ -29,7 +29,7 @@ const navigate = useNavigate()
         console.log(response.data); // Handle response from the server as needed
         // Redirect user or perform additional actions upon successful login
         enqueueSnackbar("Login Successful", { variant: "success" })
-        navigate("/")
+        navigate("/dashboard/doctor")
       } catch (error) {
         console.error("Login failed:");
         enqueueSnackbar("Login Error" , {variant:"error"})
@@ -43,7 +43,7 @@ const navigate = useNavigate()
         <section className="rounded-lg shadow-lg w-[500px] bg-gray-50">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl">
-              Sign In to Your PalmMed Account
+              Sign In to Your Doctor  Account
             </h1>
 
             <form className="space-y-4 md:space-y-4" onSubmit={handleSubmit}>
@@ -115,4 +115,4 @@ const navigate = useNavigate()
   );
 };
 
-export default Login;
+export default DoctorLoginPage;

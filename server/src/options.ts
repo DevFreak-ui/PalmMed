@@ -9,7 +9,7 @@ export const options = {
       },
       servers: [
         // {
-        //   url: "https://api.taskpulse.com",
+        //   url: "https://api.palmMed.com",
         //   description: "Production Server",
         // },
         {
