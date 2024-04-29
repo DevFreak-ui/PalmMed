@@ -4,10 +4,13 @@ import { useAppDispatch } from "../../hooks";
 import { FaCircleInfo } from "react-icons/fa6";
 import { useState } from "react";
 import axios from "axios";
-
+import { openPredictionResultsModal } from "../../redux/features/modal/modalSlice";
 
 const FormModal = () => {
 
+  const handleOpenPredictionResultsModal = () => {
+        dispatch(openPredictionResultsModal())
+  }
 
 
       const [formData, setFormData] = useState({
@@ -37,74 +40,7 @@ const handleInputChange = (e) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
   
-    
-   
-
-    
-
-    console.log(formData)
-
-
-
-
-    try {
-      const response = await axios.post("https://0f4a-104-28-239-10.ngrok-free.app/predict", formData);
-      const prediction = response.data
-      console.log(response.data);
-
-        
-     
-      
-
-      const ff = await axios.post("https://7588-41-66-228-33.ngrok-free.app/api/v1/llm/predict", prediction);
-      const resultsfinal = ff.data
-      console.log(resultsfinal);
-
-
-
-      // try {
-      //   let config = {
-      //   method: 'post',
-      //   maxBodyLength: Infinity,
-      //   url: 'https://7588-41-66-228-33.ngrok-free.app/api/v1/llm/predict',
-      //   headers: { 
-      //     'Content-Type': 'application/json'
-      //   },
-      //   data : JSON.stringify(finalData)
-      //   };
-      //           axios.request(config)
-      //   .then((response) => {
-      //     console.log(JSON.stringify(response.data));
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-    
-    } catch (error) {
-      console.error("Error", error);
-   
-      // Handle login failure, show error message to the user, etc.
-    }
-    // try {
-    //   const response = await axios.post(
-    //     "https://0f4a-104-28-239-10.ngrok-free.app/predict",
-    //     formData
-    //   );
-    //   console.log(response.data);
-    //   // Handle success response
-    // } catch (error) {
-    //   console.error("Prediction failed:", error);
-    //   // Handle error
-    // }
-
-   
-    
-// console.log(formDataArray);
-
-  };
 
 
   const dispatch = useAppDispatch();
@@ -117,6 +53,20 @@ const handleInputChange = (e) => {
 
   const handleCloseFormModal = () => {
     dispatch(closeFormModal());
+  };
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+ 
+
+    handleCloseFormModal()
+
+
+    handleOpenPredictionResultsModal()
+    
+
   };
 
   const [alertHidden, setAlertHidden] = useState(false)
