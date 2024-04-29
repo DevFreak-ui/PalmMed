@@ -13,6 +13,7 @@ import chats from "./routes/chat.routes";
 import messages from "./routes/message.routes";
 import predictions from "./routes/predictions.routes";
 import doctors from "./routes/doctor.routes";
+import reports from "./routes/Report.routes"
 
 
 dotenv.config();
@@ -42,6 +43,7 @@ app.use("/api/v1/chats", chats);
 app.use("/api/v1/messages", messages);
 app.use("/api/v1/predictions", predictions);
 app.use("/api/v1/doctors", doctors);
+app.use("/api/v1/reports", reports);
 
 
 

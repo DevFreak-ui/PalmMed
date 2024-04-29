@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router()
 import auth from "../middlewares/auth";
-import { predict } from "../controllers/prediction.controller";
+import { findAll, predict } from "../controllers/prediction.controller";
 import restrictAcsessTo from "../middlewares/restrictAccessTo";
 
 
@@ -27,4 +27,6 @@ import restrictAcsessTo from "../middlewares/restrictAccessTo";
  *         description: Internal server error
  */
 router.post("/predict/:id", auth, restrictAcsessTo("doctor"), predict)
+router.get("/", auth, restrictAcsessTo("doctor"), findAll)
+
 export default router;
