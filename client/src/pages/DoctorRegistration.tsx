@@ -45,7 +45,7 @@ const DoctorRegistration = () => {
       const response = await axios.post('http://localhost:6200/api/v1/doctors/create', formData);
       console.log(response.data); // Handle success response
       enqueueSnackbar("User Created Successfully", { variant: "success" })
-      navigate("/dashboard/doctor")
+      navigate("/login/doctor")
 
     } catch (error) {
       console.error('Registration failed:', error); // Handle error response
