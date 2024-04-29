@@ -136,6 +136,7 @@ print(response)
 
 This project uses Redis for persistent storage of chat history. Ensure that your Redis server is configured correctly for proper operation.
 The chatbot's responses are generated using OpenAI's GPT model
+[ColabNotes Documentation](https://colab.research.google.com/drive/1mhy_A-1vhwbmVhGi_15nf2WjTFdjE8Vf?usp=sharing)
 
 ## Model Prediction Service
 
