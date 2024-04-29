@@ -13,7 +13,7 @@ from langchain_community.chat_message_histories.upstash_redis import (
 # Init redis: Redis would be used for our persistent data storage for our chat history and memory purposes
 redis_cache = redis.Redis(
   host=os.getenv('REDIS_HOST'),
-  port=42786,
+  port=os.getenv('REDIS_PORT'),
   password=os.getenv('REDIS_PASSWORD'),
   ssl=True
 )
@@ -22,7 +22,7 @@ redis_cache = redis.Redis(
 history = UpstashRedisChatMessageHistory(
     url=os.getenv('REDIS_HOST'),
     token=os.getenv('REDIS_TOKEN'),
-    session_id='2626262655454535366363',
+    session_id=os.getenv('REDIS_SESSION_ID'),
     ttl=0
 )
 
@@ -33,8 +33,11 @@ llm = ChatOpenAI(
 )
 
 class ChatBotService:
-    def chat_with_bot(self, user_prompt:PromptSchema, context:ContextSchema):
-        
+    def chat_with_bot(self, user_prompt:PromptSchema, context:PredictionSchema):
+        if context.prediction == 1:
+            context_result = "I have a heart disease"
+        elif context.prediction == 0:
+            context_result = "I do not have a heart disease"
         
         
         prompt = ChatPromptTemplate.from_messages([
@@ -52,7 +55,7 @@ class ChatBotService:
 
         ai_response = chain.invoke({
             'input': user_prompt.prompt,
-            'context': context.context,
+            'context': context_result,
             'chat_history': chat_history
         })
         history.add_user_message(user_prompt.prompt)
@@ -62,26 +65,12 @@ class ChatBotService:
     
 
 
-    def chat_with_bot_plus_history(self, user_prompt:PromptSchema,context:PredictionSchema, user_id:str):
-        
-        """_summary_
-
-        Returns:
-            _type_: _description_
-        """       
-        if context.prediction == 1:
-            context_result = "I have a heart disease"
-        elif context.prediction == 0:
-            context_result = "I do not have a heart disease"
+    def chat_with_bot_plus_history(self, user_prompt:PromptSchema,context:ContextSchema, user_id:str):
         
         prompt = ChatPromptTemplate.from_messages([
-            ("system","""You are a trained cardiologist. A message would be passed to you to determine the heart status of your patient.  {context}
-             
-            With the information provided to you, respond to the user's heart related problems
-             
-             """),
-            MessagesPlaceholder(variable_name="chat_history"),
-            ("human", "{input}")
+            ('system', 'You are a trained cardiologist, who has the ability to give practical advice on heart related device. You can tell whether a user has a heart disease or not.A user had provided you with {context}. You are able to advice the user on what to do next. Be as kind as possible. Be as concise as possible with your response'),
+            MessagesPlaceholder(variable_name='chat_history'),
+            ('human', '{input}')
         ])
 
 
@@ -99,7 +88,7 @@ class ChatBotService:
         chat_history_array = bytes_to_string.split(',')
         
         response = chain.invoke(
-        {"context": context_result, "input": user_prompt.prompt, "chat_history": chat_history_array},
+        {"context": context.context, "input": user_prompt.prompt, "chat_history": chat_history_array},
         )
 
         redis_cache.append(user_id, ', ' + user_prompt.prompt)

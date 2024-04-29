@@ -77,25 +77,31 @@ This project implements a chatbot service that predicts whether a user has a hea
 
 ```
 REDIS_HOST=your_redis_host
+REDIS_PORT=your_redis_port
 REDIS_PASSWORD=your_redis_password
 REDIS_TOKEN=your_redis_token
+REDIS_SESSION_ID=your_redis_session_id
 OPENAI_API_KEY=your_openai_api_key
 ```
 
-3. Start the Redis server:Ensure that Redis is running on your local machine or use a remote Redis server. Update the .env file with the correct Redis host, password, and token.
+3. Start the Redis server:
+   Use a remote Redis server.
+   [Visit](https://console.upstash.com/redis)
+   Create a database connection
+   Update the .env file with the correct Redis host, password, and token.
 
 4. Run the application
-   `python main.py`
+   `uvicorn main:app --reload`
 
 ## Usage
 
 `ChatBotService.chat_with_bot`
-This method takes a user prompt and context and generates a response from the chatbot.
+This method takes a user prompt and prediction context and generates a response from the chatbot.
 
-### Parameters:
+**Parameters:**
 
 `user_prompt` (PromptSchema): The user's prompt.
-`context` (ContextSchema): The context of the conversation.
+`context` (PredictionSchema): The prediction context.
 
 Returns:
 The chatbot's response as a string.
@@ -108,15 +114,15 @@ print(response)
 ```
 
 `ChatBotService.chat_with_bot_plus_history`
-This method takes a user prompt, prediction context, and user ID, and generates a response from the chatbot.
+This method takes a user prompt, context, and user ID, and generates a response from the chatbot while maintaining chat history.
 
-### Parameters:
+**Parameters:**
 
 `user_prompt` (PromptSchema): The user's prompt.
-`context` (PredictionSchema): The prediction context.
+`context` (ContextSchema): The context of the conversation.
 `user_id` (str): The user's ID.
-
 Returns:
+
 The chatbot's response as a string.
 Example usage:
 
@@ -128,14 +134,15 @@ print(response)
 
 # Notes
 
-This project uses a Redis server for storing chat history. Ensure that your Redis server is configured correctly for proper operation.
+This project uses Redis for persistent storage of chat history. Ensure that your Redis server is configured correctly for proper operation.
+The chatbot's responses are generated using OpenAI's GPT model
 
 ## Model Prediction Service
 
 `ModelPredictionService.format_model_response`
 This method takes a prediction result and generates a congratulatory or encouraging message based on the result.
 
-### Parameters:
+**Parameters:**
 
 `result` (PredictionSchema): The prediction result containing the confidence level and prediction verdict.
 
