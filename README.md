@@ -224,11 +224,3 @@ Contributors
 
 ![NSP Arch (1)](https://github.com/Bralex-svg/palmMed/assets/71068159/188778d7-a990-4272-b374-7e274e3f93c0)
 
-
-## **USAGE GUILDELINES**
-
-USER in our solution is a doctor
-
-1. 
-
-1.
