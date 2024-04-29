@@ -42,10 +42,10 @@ const DoctorRegistration = () => {
       console.log(formData);
     try {
       // Send form data to the backend
-      const response = await axios.post('http://localhost:6200/api/v1/users/register', formData);
+      const response = await axios.post('http://localhost:6200/api/v1/doctors/create', formData);
       console.log(response.data); // Handle success response
       enqueueSnackbar("User Created Successfully", { variant: "success" })
-      navigate("/login")
+      navigate("/dashboard/doctor")
 
     } catch (error) {
       console.error('Registration failed:', error); // Handle error response
