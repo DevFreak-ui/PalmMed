@@ -15,6 +15,7 @@ import PatientLoginPage from "../pages/PatientLoginPage"
 import {setupAxiosInterceptors } from "../services/interceptors"
 import DoctorAuth from "../services/DoctorAuth";
 import Auth from "../services/RoleGuard";
+import PatientReportsPage from "../pages/ReportsPagePatients"
 
 
 const AppRoutes = () => {
@@ -36,6 +37,7 @@ const AppRoutes = () => {
 				<Route path="/dashboard/patient" element={<Auth><PatientContainer /></Auth>} >
 					<Route index element={<MainPage />} />
 					<Route path="/dashboard/patient/palm-gpt" element={<PalmGPTChat />} />
+					<Route path="/dashboard/patient/report" element={<PatientReportsPage />} />
 				</Route>
 
 				<Route path="/dashboard/doctor" element={<DoctorAuth><DoctorContainer /></DoctorAuth>} >

@@ -3,6 +3,7 @@ import { HiPlusSm, HiChevronLeft } from "react-icons/hi";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { GoGear } from "react-icons/go";
 import { TiDocument } from "react-icons/ti";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -109,6 +110,12 @@ const SideNav = () => {
               <span className="ml-4">Recent chat...</span>
             </Link>
           </li>
+          <Link
+            to="/dashboard/patient/report"
+            className="flex items-center justify-between space-x-2 my-4 py-2 pr-2 dark:text-slate-400 cursor-pointer">
+              <span>Reports</span>
+              <span> <IoIosArrowRoundForward size={18} /> </span>
+          </Link>
         </ul>
 
         {/* Static Navigations */}
