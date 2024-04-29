@@ -1,4 +1,5 @@
 # Data Analysis Project Setup
+
 **Step 1: Navigate to the Data & AI Directory**
 
        cd Data & AI
@@ -8,16 +9,18 @@
         pip install -r requirements.txt
 
 ## **Data Processing and Analysis**
+
 **Step 3: Run Data Processing Notebook**
 
       jupyter notebook data.ipynb
 
 ## **Data Cleaning and Explanation**
+
 This notebook contains scripts for preprocessing and cleaning the raw data.
 It provides detailed explanations of the data characteristics and transformations applied.
 
-
 ## **Visual Analysis**
+
 **Step 4: Run Visual Analysis Notebook**
 
         jupyter notebook visuals.ipynb
@@ -28,11 +31,13 @@ Explore visualizations generated from the cleaned data.
 Utilizes popular visualization libraries for insightful data exploration.
 
 ## **Model Development**
+
 **Step 5: Run Model Development Notebook**
 
        jupyter notebook model.ipynb
 
 ### **Model Prediction**
+
 Implement machine learning models such as Support Vector Classifier (SVC) and Random Forest Regression.
 
 Evaluate model performance using Confusion Matrix and other relevant metrics.
@@ -40,15 +45,17 @@ Evaluate model performance using Confusion Matrix and other relevant metrics.
 Model prediction using SVC, Random Forest Regression and Confusion matrix
 
 ## **Backend Integration**
+
 **Step 6: Run Flask Application**
 
        python app.py
-							
+
+
 ### **Flask App for Backend Integration**
+
 Launches a Flask web application to serve predictive functionalities.
 
 Provides seamless integration with the trained machine learning models.
-
 
 # palmMed
 
@@ -113,12 +120,11 @@ Contributors
 - NATHAN
 
   ## **PROJECT ARCHITECTURE**
-  
-
 
 ## **USAGE GUILDELINES**
+
 USER in our solution is a doctor
 
-1. 
+1.
 
-1. 
+1.
