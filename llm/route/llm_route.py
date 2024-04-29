@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 from services.prediction_service import ModelPredictionService
-from services.chat_bot_service import ChatBotService
+from services.chat_bot_services import ChatBotService
 from schemas.llm_schemas import PredictionSchema, PromptSchema, ContextSchema
 
 prediction_model = ModelPredictionService()

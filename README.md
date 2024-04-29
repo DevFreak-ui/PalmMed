@@ -50,12 +50,105 @@ Model prediction using SVC, Random Forest Regression and Confusion matrix
 
        python app.py
 
-
 ### **Flask App for Backend Integration**
 
 Launches a Flask web application to serve predictive functionalities.
 
 Provides seamless integration with the trained machine learning models.
+
+# LLM Documentation
+
+## Heart Disease Prediction Chatbot
+
+This project implements a chatbot service that predicts whether a user has a heart disease based on their input. The chatbot is designed to simulate a conversation with a trained cardiologist, providing practical advice based on the prediction result
+
+## Setup
+
+### Prerequisites
+
+- Python 3.6+
+- Redis server
+
+1. Install dependencies:
+   `pip install -r requirements.txt`
+
+2. Setup environment variables
+   Create a `.env` file in the project root and add the following variables:
+
+```
+REDIS_HOST=your_redis_host
+REDIS_PASSWORD=your_redis_password
+REDIS_TOKEN=your_redis_token
+OPENAI_API_KEY=your_openai_api_key
+```
+
+3. Start the Redis server:Ensure that Redis is running on your local machine or use a remote Redis server. Update the .env file with the correct Redis host, password, and token.
+
+4. Run the application
+   `python main.py`
+
+## Usage
+
+`ChatBotService.chat_with_bot`
+This method takes a user prompt and context and generates a response from the chatbot.
+
+### Parameters:
+
+`user_prompt` (PromptSchema): The user's prompt.
+`context` (ContextSchema): The context of the conversation.
+
+Returns:
+The chatbot's response as a string.
+Example usage:
+
+```
+service = ChatBotService()
+response = service.chat_with_bot(user_prompt, context)
+print(response)
+```
+
+`ChatBotService.chat_with_bot_plus_history`
+This method takes a user prompt, prediction context, and user ID, and generates a response from the chatbot.
+
+### Parameters:
+
+`user_prompt` (PromptSchema): The user's prompt.
+`context` (PredictionSchema): The prediction context.
+`user_id` (str): The user's ID.
+
+Returns:
+The chatbot's response as a string.
+Example usage:
+
+```
+service = ChatBotService()
+response = service.chat_with_bot_plus_history(user_prompt, context, user_id)
+print(response)
+```
+
+# Notes
+
+This project uses a Redis server for storing chat history. Ensure that your Redis server is configured correctly for proper operation.
+
+## Model Prediction Service
+
+`ModelPredictionService.format_model_response`
+This method takes a prediction result and generates a congratulatory or encouraging message based on the result.
+
+### Parameters:
+
+`result` (PredictionSchema): The prediction result containing the confidence level and prediction verdict.
+
+Returns:
+
+The chatbot's response as a string.
+Example usage:
+
+```
+service = ModelPredictionService()
+response = service.format_model_response(prediction_result)
+print(response)
+```
 
 # palmMed
 
