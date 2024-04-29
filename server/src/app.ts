@@ -7,8 +7,6 @@ import { rateLimit } from "express-rate-limit";
 import { DBCONNECTION } from "./connection/connection";
 import { options as swaggerJsDocsOptions } from "./options";
 import cors from "cors"
-import cors from "cors"
-
 import users from "./routes/users.routes";
 import appHealth from "./routes/health.routes";
 import chats from "./routes/chat.routes";

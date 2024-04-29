@@ -29,7 +29,7 @@ const navigate = useNavigate()
         console.log(response.data); // Handle response from the server as needed
         // Redirect user or perform additional actions upon successful login
         enqueueSnackbar("Login Successful", { variant: "success" })
-        navigate("/")
+        navigate("/dashboard/doctor")
       } catch (error) {
         console.error("Login failed:");
         enqueueSnackbar("Login Error" , {variant:"error"})
