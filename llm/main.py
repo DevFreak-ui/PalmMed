@@ -1,8 +1,26 @@
 from fastapi import FastAPI
-from config.chroma_config import ChromaDb
+from fastapi.middleware.cors import CORSMiddleware
+from route.llm_route import llm_routes
 
-# Init app
+# init app
 app = FastAPI()
 
-# Init chroma
-chroma = ChromaDb()
+# register routes
+app.include_router(llm_routes)
+
+
+# add middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get('/')
+def root():
+    return {
+        'message': 'Server is working and alive 🥰.',
+        'shoutouts': 'Shout outs to Isaac Bcwin 🥰'
+    }

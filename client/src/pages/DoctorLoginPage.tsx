@@ -26,8 +26,8 @@ const navigate = useNavigate()
     e.preventDefault();
       try {
         const response = await axios.post("http://localhost:6200/api/v1/users/login", formData);
-        console.log(response.data); // Handle response from the server as needed
-        // Redirect user or perform additional actions upon successful login
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("role", response.data.role)
         enqueueSnackbar("Login Successful", { variant: "success" })
         navigate("/dashboard/doctor")
       } catch (error) {
