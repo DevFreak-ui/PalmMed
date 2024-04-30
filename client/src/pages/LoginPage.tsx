@@ -1,17 +1,15 @@
-import  { useState } from "react";
+import { useState } from "react";
 import Illustration from "../assets/images/illustration.svg";
 import GoogleButton from "../components/buttons/GoogleButton.tsx";
 import AppleButton from "../components/buttons/AppleButton.tsx";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Import axios for making HTTP requests
-import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const Login = () => {
-
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-
 
   const [formData, setFormData] = useState({
     email: "",
@@ -24,17 +22,20 @@ const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      try {
-        const response = await axios.post("http://localhost:6200/api/v1/users/login", formData);
-        console.log(response.data); // Handle response from the server as needed
-        // Redirect user or perform additional actions upon successful login
-        enqueueSnackbar("Login Successful", { variant: "success" })
-        navigate("/")
-      } catch (error) {
-        console.error("Login failed:");
-        enqueueSnackbar("Login Error" , {variant:"error"})
-        // Handle login failure, show error message to the user, etc.
-      }
+    try {
+      const response = await axios.post(
+        "http://localhost:6200/api/v1/users/login",
+        formData
+      );
+      console.log(response.data); // Handle response from the server as needed
+      // Redirect user or perform additional actions upon successful login
+      enqueueSnackbar("Login Successful", { variant: "success" });
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:");
+      enqueueSnackbar("Login Error", { variant: "error" });
+      // Handle login failure, show error message to the user, etc.
+    }
   };
 
   return (
@@ -48,7 +49,10 @@ const navigate = useNavigate()
 
             <form className="space-y-4 md:space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
                   Your email
                 </label>
                 <input
@@ -63,7 +67,10 @@ const navigate = useNavigate()
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
                   Password
                 </label>
                 <input
@@ -78,7 +85,10 @@ const navigate = useNavigate()
                 />
               </div>
               <div className="py-2">
-                <button type="submit" className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button
+                  type="submit"
+                  className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
                   Sign In
                 </button>
               </div>
@@ -97,9 +107,8 @@ const navigate = useNavigate()
                 or
               </div>
               <div className="flex items-start justify-between">
-               
-                 <GoogleButton buttonText="Sign In with Google" />
-            <AppleButton buttonText="Sign In with Apple" />
+                <GoogleButton buttonText="Sign In with Google" />
+                <AppleButton buttonText="Sign In with Apple" />
               </div>
             </form>
           </div>

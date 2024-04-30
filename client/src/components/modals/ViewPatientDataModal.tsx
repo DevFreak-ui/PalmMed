@@ -53,7 +53,7 @@ const ViewPatientDataModal = () => {
           <span></span>
           <div className="mb-1 mt-14">
             <h1 className="text-zinc-950 dark:text-white text-opacity-95 text-[32px] font-semibold leading-[48px]">
-              Patient Details
+              Patient Report Details
             </h1>
           </div>
 

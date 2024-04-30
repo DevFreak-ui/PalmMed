@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PatientsReportData } from "../data/patientsReportMockData";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { FaEye } from "react-icons/fa6";
 import { RiEdit2Line } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
@@ -7,6 +9,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../services/baseURL";
 import moment from "moment";
+import ViewPatientDataModal from "../components/modals/ViewPatientDataModal";
+import { openViewPatientDetailsModal } from "../redux/features/modal/modalSlice";
 
 // const formatPredictionConfidenceLevel = (level: number): string => {
 //   return (level * 100).toFixed(0) + "%";
@@ -19,10 +23,10 @@ import moment from "moment";
 //         confidence: item.prediction_id.prediction.confidence,
 //         prediction: item.prediction_id.prediction.prediction
 //     }))
-// } 
+// }
 
 const PatientReports: React.FC = () => {
-const [reports, setReports] = useState([])
+  const [reports, setReports] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,9 +36,18 @@ const [reports, setReports] = useState([])
     fetchData();
   }, []);
 
-       
+  const is_ViewPatientDetailsModal_Open = useAppSelector((state) => {
+    return state.modalForm.viewPatientDetailsModal_isOpen;
+  });
 
-//   const reportsData = reportsTransformer(reports)
+
+   const handleOpenViewPatientDetailsModal = () => {
+     dispatch(openViewPatientDetailsModal());
+   };
+
+
+  const dispatch = useAppDispatch();
+  //   const reportsData = reportsTransformer(reports)
   console.log(reports);
 
   return (
@@ -71,7 +84,7 @@ const [reports, setReports] = useState([])
                   href="#"
                   className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
                 >
-                  Reports
+                  Patient Reports
                 </a>
               </div>
             </li>
@@ -83,7 +96,7 @@ const [reports, setReports] = useState([])
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
             <tr>
-              <th className="px-6 py-3 w-1/6">Name</th>
+              <th className="px-6 py-3 w-1/6">Patient Name</th>
               <th className="px-6 py-3 w-1/6">Prediction</th>
               <th className="px-6 py-3 w-1/6">Confidence Level</th>
               <th className="px-6 py-3 w-1/6">Report Created At</th>
@@ -97,20 +110,32 @@ const [reports, setReports] = useState([])
                 key={report._id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                <td className="px-6 py-4 w-1/6">{report.prediction_id.doctor_id ? `${report.prediction_id.doctor_id.firstname} ${report.prediction_id.doctor_id.lastname}` : "N/A"}</td>
+                <td className="px-6 py-4 w-1/6">
+                  {report.prediction_id.user_id
+                    ? `${report.prediction_id.user_id.firstname} ${report.prediction_id.user_id.lastname}`
+                    : "N/A"}
+                </td>
                 <td className="px-6 py-4 w-1/6">
                   {report.prediction_id.prediction.prediction || "N/A"}
                 </td>
                 <td className="px-6 py-4 w-1/6">
                   {`${report.prediction_id.prediction.confidence}%` || "N/A"}
                 </td>
-                <td className="px-6 py-4 w-1/6">{moment(report.createdAt).format('DD-MM-YYYY') || "N/A"}</td>
+                <td className="px-6 py-4 w-1/6">
+                  {moment(report.createdAt).format("DD-MM-YYYY") || "N/A"}
+                </td>
                 <td className="px-6 py-4 w-1/6">
                   <button className="p-2 rounded-lg hover:bg-gray-500/20 dark:hover:bg-gray-500/50">
                     <BsStars size={18} />
                   </button>
                 </td>
                 <td className="pl-3 py-4 w-1/6 flex space-x-4 items-center">
+                  <button
+                    className="hover:text-yellow-300"
+                    onClick={handleOpenViewPatientDetailsModal}
+                  >
+                    <FaEye size="1.4em" />
+                  </button>
                   <button className="hover:text-green-400">
                     {" "}
                     <RiEdit2Line size="1.4em" />{" "}
@@ -125,6 +150,7 @@ const [reports, setReports] = useState([])
           </tbody>
         </table>
       </div>
+      {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />}
     </section>
   );
 };
