@@ -11,7 +11,7 @@ interface General {
 export interface User extends General {
   reports?: any;
   role: string;
-  doctor_id?: []
+  doctor_id?: any
 }
 
 export interface Message {

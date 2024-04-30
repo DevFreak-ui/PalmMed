@@ -227,7 +227,14 @@ export const findMe = async (req: any, res: Response, next: NextFunction) => {
 
 export const findAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await User.find();
+    const users = await User.find()
+    .populate({
+      path: "reports",
+      populate: [{ path: "prediction_id", populate: { path: "doctor_id" } }],
+    })
+    .exec();
+
+
     if (!users || users.length === 0) {
       return res.status(400).json({ message: "No users found" });
     }
@@ -241,7 +248,13 @@ export const findAll = async (req: Request, res: Response, next: NextFunction) =
 export const findById = async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id)
+      .populate({
+        path: "reports",
+        populate: [{ path: "prediction_id" }],
+      })
+      .exec();
+
     if (!user) {
       return res.status(404).json({ message: "No user found with the provided ID" });
     }

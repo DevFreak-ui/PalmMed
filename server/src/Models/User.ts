@@ -54,14 +54,19 @@ const userSchema = new mongoose.Schema<UserInterface>({
     required: false,
   },
 
-  doctor_id: [
+  doctor_id:
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Doctor"
     }
-  ],
+  ,
 
-  reports: [],
+  reports: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Reports"
+    }
+  ],
 
 });
 
