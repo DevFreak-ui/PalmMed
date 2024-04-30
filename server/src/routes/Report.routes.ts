@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router()
 import auth from "../middlewares/auth";
 import restrictAcsessTo from "../middlewares/restrictAccessTo";
-import { allReport, createNewReport, editreport, findOneReport } from "../controllers/reports.controller";
+import { allReport, createNewReport, editreport, findOneReport } from "../controllers/Reports.controller";
 
 router.post("/create/report/:id", auth, restrictAcsessTo("doctor"), createNewReport)
 router.get("/all", auth, restrictAcsessTo("doctor"), allReport)

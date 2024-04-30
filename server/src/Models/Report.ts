@@ -11,6 +11,8 @@ const predictionSchema = new mongoose.Schema<any>({
     type: String
  },
   
+}, {
+   timestamps: true
 });
 
 export const Reports = mongoose.model<any>("Reports", predictionSchema);
