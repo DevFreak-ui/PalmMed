@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./features/modal/modalSlice"
 import topNavReducer from "./features/topNavbar/topNavbarSlice";
+import sidenavSlice from "./features/SideNav/sidenavSlice";
 
 const store = configureStore({
   reducer: {
     modalForm: modalReducer,
-    topNav:topNavReducer
+    topNav:topNavReducer,
+    sideNav: sidenavSlice
   },
 });
 
