@@ -76,7 +76,7 @@ const PatientRecords = () => {
         <tbody>
           {allUsers?.map((user: any) => (
             <tr
-              key={user.id}
+              key={user._id}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="px-6 py-4 w-1/6">{user.firstname}</td>
@@ -103,7 +103,7 @@ const PatientRecords = () => {
                   {" "}
                   <span className="bg-purple-600 hover:bg-transparent hover:text-black dark:hover:text-white hover:border dark:hover:border-neutral-200 hover:border-purple-600 text-white text-xs  p-2 font-bold rounded-lg">
                     {" "}
-                    Make Prediction
+                    Predict
                   </span>
                 </button>
               </td>
