@@ -44,8 +44,6 @@ const MainPage = () => {
         dispatch(closePredictionResultsModal())
     }
     
-    
-
     const handleFormSubmission = () => {
         setChatInitiated(false)
     }

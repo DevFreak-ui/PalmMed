@@ -5,6 +5,7 @@ import { PiMoon } from "react-icons/pi"
 import { useState, useEffect } from "react"
 import { baseURL } from "../../services/baseURL"
 import axios from "axios"
+import { useAppSelector } from "../../hooks"
 
 interface TopNavProps{
     pageTitle:string
@@ -27,13 +28,17 @@ const [user, setUser] = useState<any>()
     setUser(res.data.user)
   };
 
+  const isSideNavActive = useAppSelector((state) => {
+    return state.sideNav.sideNavIsOpen
+  })
+
   useEffect(() => {
     fetchData();
   }, []);
 
 
     return (
-        <nav className="bg-white px-4 py-4 dark:bg-gray-800 fixed md:ml-64 h-auto left-0 right-0 top-0 z-20">
+        <nav className={`bg-white px-4 py-4 dark:bg-gray-800 fixed ${isSideNavActive ? 'md:ml-64' : 'md:ml-20'} h-auto left-0 right-0 top-0 z-20`}>
             <div className="flex flex-wrap justify-between items-center">
                 <div className="flex justify-start items-center">
                     {/* Hamburger Menu onSmall Screens */}

@@ -4,6 +4,7 @@ import { WiDaySunny } from "react-icons/wi"
 import { PiMoon } from "react-icons/pi"
 import { baseURL } from "../../services/baseURL"
 import axios from "axios"
+import { useAppSelector } from '../../hooks'
 
 
 const TopNav = () => {
@@ -21,13 +22,17 @@ const TopNav = () => {
         const res = await axios.get(`${baseURL}/users/find/me`);
         setUser(res.data.user)
       };
+
+    const isSideNavActive = useAppSelector((state) => {
+        return state.sideNav.sideNavIsOpen
+      })
     
       useEffect(() => {
         fetchData();
       }, []);
 
     return (
-        <nav className="bg-transparent px-4 py-4  fixed md:ml-64 h-auto left-0 right-0 top-0 z-20">
+        <nav className={`bg-transparent px-4 py-4  fixed ${isSideNavActive ? 'md:ml-64' : 'md:ml-20'} h-auto left-0 right-0 top-0 z-20`}>
             <div className="flex flex-wrap justify-between items-center">
                 <div className="flex justify-start items-center">
                     {/* Hamburger Menu onSmall Screens */}
