@@ -17,10 +17,11 @@ import {
 import axios from "axios";
 import { baseURL } from "../../services/baseURL";
 import PredicitonResultsModal from "../modals/PredictionResultsModal";
-
+import { useNavigate } from "react-router-dom"
 
 const PatientRecords = () => {
   const [allUsers, setAllUser] = useState([])
+  const [userId, setUserId] = useState<any>()
 
   const fetchAllUsers = async () => {
     const res2 = await axios.get(`${baseURL}/users/find/all`);
@@ -30,8 +31,6 @@ const PatientRecords = () => {
   useEffect(() => {
     fetchAllUsers()
   }, []);
-
-
 
 
   const is_FormModal_Open = useAppSelector((state) => {
@@ -48,12 +47,14 @@ const PatientRecords = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleOpenFormModal = () => {
+  const handleOpenFormModal = (id: any) => {
+    setUserId(id)
     dispatch(openFormModal());
   };
   const handleOpenViewPatientDetailsModal = () => {
     dispatch(openViewPatientDetailsModal());
   };
+
 
 
 
@@ -98,7 +99,7 @@ const PatientRecords = () => {
                 </button>
               </td>
               <td className="px-6 py-4 w-1/6">
-                <button className="" onClick={handleOpenFormModal}>
+                <button className="" onClick={()=>handleOpenFormModal(user._id)}>
                   {" "}
                   <span className="bg-purple-600 hover:bg-transparent hover:text-black dark:hover:text-white hover:border dark:hover:border-neutral-200 hover:border-purple-600 text-white text-xs  p-2 font-bold rounded-lg">
                     {" "}
@@ -110,7 +111,7 @@ const PatientRecords = () => {
           ))}
         </tbody>
       </table>
-      {is_FormModal_Open && <FormModal />}
+      {is_FormModal_Open && <FormModal id={userId}/>}
       {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />}
       {is_PatientPredictionResultsModal_isOpen && <PredicitonResultsModal />}
     </div>
