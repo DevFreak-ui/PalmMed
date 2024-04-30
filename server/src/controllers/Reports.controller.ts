@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { NextFunction, Response } from "express";
 import { Prediction } from "../Models/Predictions";
 import { Reports } from "../Models/Report";
 import { User } from "../Models/User";
@@ -10,17 +10,30 @@ export const createNewReport = async (req: any, res: Response) => {
     if (!prediction) {
       return res.status(400).json({ message: "no reult found" });
     }
+    const user_id = prediction.user_id;
+
+    const user = await User.findById(user_id);
+    if (!user) {
+      return res.status(400).json({ message: "no reult found" });
+    }
 
     const reportData = await Reports.create({
       verdict: req.body.verdict,
       prediction_id: prediction._id,
     });
 
+    user.reports.push(reportData._id);
+    await user.save();
+
     return res.status(201).json({ reportData });
   } catch (error) {
     console.log(error);
   }
 };
+
+
+
+
 
 export const allReport = async (req: any, res: Response) => {
   try {
@@ -56,3 +69,20 @@ export const findOneReport = async (req: any, res: Response) => {
     console.log(error);
   }
 };
+
+
+export const editreport = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const report = await Reports.findById(req.params.id)
+    if(!report){
+      return res.status(404).json({message: "no data found"})
+    }
+
+    report.verdict = req.body.verdict || report.verdict;
+    const updatedReport = await report.save() 
+
+    return res.status(200).json({ message: 'Report updated successfully', report: updatedReport })
+  } catch (error) {
+    next(error)
+  }
+}
