@@ -5,8 +5,13 @@ import { FaCircleInfo } from "react-icons/fa6";
 import { useState } from "react";
 import axios from "axios";
 import { openPredictionResultsModal } from "../../redux/features/modal/modalSlice";
+import { baseURL } from "../../services/baseURL";
 
-const FormModal = () => {
+
+interface IFormModal {
+  id: string
+}
+const FormModal = ({ id }: IFormModal) => {
 
   const handleOpenPredictionResultsModal = () => {
         dispatch(openPredictionResultsModal())
@@ -14,19 +19,19 @@ const FormModal = () => {
 
 
       const [formData, setFormData] = useState({
-        age: "",
-        gender: "0",
-        cpTypes: "0",
-        rbp: "",
-        sc: "",
-        fbs: "1",
-        recg: "0",
-        mhr: "",
-        exang: "1",
-        die: "",
-        peak: "0",
-        mvcf: "0",
-        thal: "0",
+        age: "", //
+        sex: "0", //
+        cp: "0", //
+        trestbps: "",//
+        chol: "",
+        fbs: "1", //
+        restecg: "0", //
+        thalach: "0",//
+        exang: "1", //
+        oldpeak: "0", //
+        slope: "", //
+        ca: "",
+        thal: "0", //
       
       });
 
@@ -59,14 +64,11 @@ const handleInputChange = (e) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await axios.post(`${baseURL}/predictions/predict/${id}`, formData)
+    console.log(response);
  
-
     handleCloseFormModal()
-
-
     handleOpenPredictionResultsModal()
-    
-
   };
 
   const [alertHidden, setAlertHidden] = useState(false)
@@ -128,7 +130,7 @@ const handleInputChange = (e) => {
                 </div>
                 <div className="w-1/2">
                     <label htmlFor="gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                    <select onChange={handleInputChange} value={formData.gender} name="gender" id="gender" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select onChange={handleInputChange} value={formData.sex} name="sex" id="gender" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option value="0">Male</option>
                       <option value="1">Female</option>
                     </select>
@@ -145,7 +147,7 @@ const handleInputChange = (e) => {
                           <div className="tooltip-arrow" data-popper-arrow></div>
                       </div>
                     </span>
-                    <select onChange={handleInputChange} value={formData.cpTypes} name="cpTypes" id="cp-types" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select onChange={handleInputChange} value={formData.cp} name="cp" id="cp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option value="0">Typical Angina</option>
                       <option value="1">Atypical Angina</option>
                       <option value="2">Non-Anginal pain</option>
@@ -163,7 +165,7 @@ const handleInputChange = (e) => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input onChange={handleInputChange} value={formData.rbp} name="rbp" type="number" id="rbp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mmHg)" required />
+                  <input onChange={handleInputChange} value={formData.trestbps} name="trestbps" type="number" id="trestbps" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mmHg)" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -176,7 +178,7 @@ const handleInputChange = (e) => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input onChange={handleInputChange} value={formData.sc} name="sc" type="number" id="sc" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mg/dl)" required />
+                  <input onChange={handleInputChange} value={formData.slope} name="slope" type="number" id="slope" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value (mg/dl)" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -206,7 +208,7 @@ const handleInputChange = (e) => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select onChange={handleInputChange} value={formData.recg} name="recg" id="recg" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.restecg} name="restecg" id="restecg" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">Normal</option>
                     <option value="1">Having ST-T Wave Abnormality</option>
                     <option value="2">Left Ventricular Hypothrophy</option>
@@ -223,7 +225,7 @@ const handleInputChange = (e) => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input onChange={handleInputChange} value={formData.mhr} name="mhr" type="number" id="mhr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
+                  <input onChange={handleInputChange} value={formData.ca} name="ca" type="number" id="ca" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -252,7 +254,7 @@ const handleInputChange = (e) => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <input onChange={handleInputChange} value={formData.die} name="die" type="number" id="die" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
+                  <input onChange={handleInputChange} value={formData.chol} name="chol" type="number" id="chol" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="value" required />
               </div>
               <div>
                   <span className="inline-flex space-x-2 items-center mb-2">
@@ -265,7 +267,7 @@ const handleInputChange = (e) => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select onChange={handleInputChange} value={formData.peak} name="peak" id="peak" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.oldpeak} name="oldpeak" id="oldpeak" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">Upsloping</option>
                     <option value="1">Flat</option>
                     <option value="2">Downsloping</option>
@@ -299,7 +301,7 @@ const handleInputChange = (e) => {
                         <div className="tooltip-arrow" data-popper-arrow></div>
                     </div>
                   </span>
-                  <select onChange={handleInputChange} value={formData.mvcf} name="mvcf" id="mvcf" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select onChange={handleInputChange} value={formData.thalach} name="thalach" id="thalach" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
