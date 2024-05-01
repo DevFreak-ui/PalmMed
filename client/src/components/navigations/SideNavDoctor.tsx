@@ -1,6 +1,5 @@
 import { IoCopyOutline } from "react-icons/io5"
-import { BsChatSquareText } from "react-icons/bs";
-import { FaRegCircleQuestion, FaS } from "react-icons/fa6";
+import { FaRegCircleQuestion } from "react-icons/fa6";
 import { GoGear } from "react-icons/go";
 import { TiDocument } from "react-icons/ti";
 import { CiBoxList } from "react-icons/ci";
