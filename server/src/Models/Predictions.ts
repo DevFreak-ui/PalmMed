@@ -111,7 +111,11 @@ const predictionSchema = new mongoose.Schema<any>({
     {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }
+    },
+
+    ai_assisted_text: {
+      type: String,
+    },
   
 });
 

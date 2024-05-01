@@ -15,6 +15,13 @@ export const predict = async (req: any, res: Response) => {
       req.body
     );
 
+    // const newBody = {
+    //   ...req.body,
+    //   ...response.data
+    // }
+
+    // console.log(newBody)
+
     if (response.data) {
       const reponseData = await axios.post(
         "https://hearty-o4ui.onrender.com/api/v1/llm/predict",
@@ -24,7 +31,8 @@ export const predict = async (req: any, res: Response) => {
         ...req.body,
         doctor_id: req.user.id,
         prediction: response.data,
-        user_id: user._id
+        user_id: user._id,
+        ai_assisted_text: reponseData.data
       });
       if (!results) {
         return res.status(400).json({ message: "prediction failed" });
