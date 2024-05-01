@@ -21,7 +21,6 @@ const PredicitonResultsModal = () => {
     dispatch(closePredictionResultsModal());
   };
 
-
   const dispatch = useAppDispatch();
 
   const handleInnerClick = (
@@ -34,34 +33,33 @@ const PredicitonResultsModal = () => {
     dispatch(closePredictionResultsModal());
   };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      const verdict = { verdict: doctorVerdict };
-      setIsLoading(true);
-      try {
-        e.preventDefault();
-        // show loader
-        const response = await axios.post(
-          `${baseURL}/reports/create/report/${predictionData.results._id}`,
-          verdict
-        );
-       
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const verdict = { verdict: doctorVerdict };
+    setIsLoading(true);
+    try {
+      e.preventDefault();
+      // show loader
+      const response = await axios.post(
+        `${baseURL}/reports/create/report/${predictionData.results._id}`,
+        verdict
+      );
 
-       
-          console.log(response.data);
-          setIsLoading(false);
-          handleClosePredictionResultModal();
-          enqueueSnackbar("Report Created Successfully", {
-            variant: "success",
-          });
-          navigate("/dashboard/doctor/patient-reports");
-      
+      console.log(response);
+      if (response.status === 201) {
         setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
+        handleClosePredictionResultModal();
+        enqueueSnackbar("Report Created Successfully", {
+          variant: "success",
+        });
+        navigate("/dashboard/doctor/patient-reports");
       }
-    };
 
+ 
+    } catch (error) {
+      console.log(error);
+      setIsLoading(true);
+    }
+  };
 
   const Loader = () => {
     return (
