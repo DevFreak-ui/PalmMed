@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PatientsReportData } from "../data/patientsReportMockData";
-import { RiEdit2Line } from "react-icons/ri";
+import { FaEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../services/baseURL";
 import moment from "moment";
-
-const formatPredictionConfidenceLevel = (level: number): string => {
-  return (level * 100).toFixed(0) + "%";
-};
+import { useAppSelector, useAppDispatch } from "../hooks";
+import { openViewPatientDetailsModal } from "../redux/features/modal/modalSlice";
+import PatientViewReportDetails from "../components/modals/PatientViewReportDetails";
 
 const reportId = "fdfdffsdsds";
 
@@ -62,6 +60,18 @@ const PatientReportsPage: React.FC = () => {
     };
     fetchData();
   }, []);
+
+  const is_ViewPatientDetailsModal_Open = useAppSelector((state) => {
+    return state.modalForm.viewPatientDetailsModal_isOpen;
+  });
+
+
+   const handleOpenViewPatientDetailsModal = () => {
+     dispatch(openViewPatientDetailsModal());
+   };
+
+
+  const dispatch = useAppDispatch();
 
   console.log(reports);
 
@@ -168,13 +178,15 @@ const PatientReportsPage: React.FC = () => {
                   </button>
                 </td>
                 <td className="pl-3 py-4 w-1/6 flex space-x-4 items-center">
-                  <button className="hover:text-green-400">
-                    {" "}
-                    <RiEdit2Line size="1.4em" />{" "}
+                  <button
+                    className="hover:text-yellow-300"
+                    onClick={handleOpenViewPatientDetailsModal}
+                  >
+                    <FaEye size="1.2em" />
                   </button>
                   <button className="hover:text-red-600">
                     {" "}
-                    <MdDelete size="1.4em" />{" "}
+                    <MdDelete size="1.2em" />{" "}
                   </button>
                 </td>
               </tr>
@@ -182,6 +194,7 @@ const PatientReportsPage: React.FC = () => {
           </tbody>
         </table>
       </div>
+      {is_ViewPatientDetailsModal_Open && <PatientViewReportDetails />}
     </section>
   );
 };

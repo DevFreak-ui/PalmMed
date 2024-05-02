@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PatientsReportData } from "../data/patientsReportMockData";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { FaEye } from "react-icons/fa6";
 import { RiEdit2Line } from "react-icons/ri";
@@ -150,7 +149,7 @@ const PatientReports: React.FC = () => {
           </tbody>
         </table>
       </div>
-      {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />}
+      {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />} 
     </section>
   );
 };
