@@ -495,7 +495,7 @@ const FormModal = ({ id }: IFormModal) => {
                     role="tooltip"
                     className="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
                   >
-                    Tooltip on Maximum Heart Rate Achieved
+                    Tooltip on Depression induced by Exercise
                     <div className="tooltip-arrow" data-popper-arrow></div>
                   </div>
                 </span>

@@ -10,6 +10,8 @@ import { baseURL } from "../services/baseURL";
 import moment from "moment";
 import ViewPatientDataModal from "../components/modals/ViewPatientDataModal";
 import { openViewPatientDetailsModal } from "../redux/features/modal/modalSlice";
+import { updateReportId } from "../redux/features/reportId/reportIdSlice";
+
 
 // const formatPredictionConfidenceLevel = (level: number): string => {
 //   return (level * 100).toFixed(0) + "%";
@@ -26,6 +28,11 @@ import { openViewPatientDetailsModal } from "../redux/features/modal/modalSlice"
 
 const PatientReports: React.FC = () => {
   const [reports, setReports] = useState([]);
+
+ 
+  const setNewReportId = (id:string) => {
+      dispatch(updateReportId(id));
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,12 +136,20 @@ const PatientReports: React.FC = () => {
                   </button>
                 </td>
                 <td className="pl-3 py-4 w-1/6 flex space-x-4 items-center">
-                  <button
-                    className="hover:text-yellow-300"
-                    onClick={handleOpenViewPatientDetailsModal}
-                  >
-                    <FaEye size="1.4em" />
-                  </button>
+                 
+                    <button
+                      className="hover:text-yellow-300 "
+                      onClick={handleOpenViewPatientDetailsModal}
+                    >
+                      <FaEye
+                        size="1.4em"
+                        onClick={() => {
+                          setNewReportId(report._id);
+                        }}
+                      />
+                    </button>
+               
+
                   <button className="hover:text-green-400">
                     {" "}
                     <RiEdit2Line size="1.4em" />{" "}
@@ -149,7 +164,7 @@ const PatientReports: React.FC = () => {
           </tbody>
         </table>
       </div>
-      {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />} 
+      {is_ViewPatientDetailsModal_Open && <ViewPatientDataModal />}
     </section>
   );
 };
