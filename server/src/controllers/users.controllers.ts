@@ -7,8 +7,8 @@ import {
   validateUserLogin,
   validateUserRegistration,
   validateUserPasswordReset,
-  validateUserPasswordDetails
-} from '../Models/User';
+  validateUserPasswordDetails,
+} from "../Models/User";
 import AppMail from "../services/mail/mail";
 import { IUser } from "../../shared/user";
 import { Doctor } from "../Models/Doctor";
@@ -18,7 +18,10 @@ interface CustomRequest extends Request {
 
 export const createUser = async (req: Request, res: Response) => {
   const { error } = validateUserRegistration(req.body);
-  if (error) return res.status(400).json({ status: "failed", message: error.details[0].message });
+  if (error)
+    return res
+      .status(400)
+      .json({ status: "failed", message: error.details[0].message });
 
   const userExists = Boolean(
     await User.findOne({
@@ -26,7 +29,13 @@ export const createUser = async (req: Request, res: Response) => {
     }).countDocuments()
   );
 
-  if (userExists)
+  const doctorExists = Boolean(
+    await Doctor.findOne({
+      email: req.body.email,
+    }).countDocuments()
+  );
+
+  if (userExists || doctorExists)
     return res.status(400).json({
       status: "failed",
       message: "Email is already taken",
@@ -48,12 +57,8 @@ export const createUser = async (req: Request, res: Response) => {
 
   user.password = "";
 
-  res.json({ message: 'User registerd', user });
+  res.json({ message: "User registerd", user });
 };
-
-
-
-
 
 export const login = async (req: Request, res: Response) => {
   const { error } = validateUserLogin(req.body);
@@ -63,23 +68,34 @@ export const login = async (req: Request, res: Response) => {
       message: error.details[0].message,
     });
 
-    let user;
+  let user;
 
-    user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      user = await Doctor.findOne({ email: req.body.email });
-      if (!user)
-        return res.status(404).json({ status: "failed", message: "Invalid email or password." });
-    }
-  
+  user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    user = await Doctor.findOne({ email: req.body.email });
+    if (!user)
+      return res
+        .status(404)
+        .json({ status: "failed", message: "Invalid email or password." });
+  }
+
   const passwordValid = await bcrypt.compare(req.body.password, user.password);
   if (!passwordValid)
-    return res.status(400).json({ status: "failed", message: "Invalid email or password." });
+    return res
+      .status(400)
+      .json({ status: "failed", message: "Invalid email or password." });
 
-  const token = jwt.sign({id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
+  const token = jwt.sign({ id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
   // , {expiresIn: "15m"}
 
-  res.status(200).json({ status: "success", message: "Successfully logged in", token:token, role: user.role });
+  res
+    .status(200)
+    .json({
+      status: "success",
+      message: "Successfully logged in",
+      token: token,
+      role: user.role,
+    });
 };
 
 const generateResetToken = () => {
@@ -97,13 +113,13 @@ export const updateUserProfile = async (req: CustomRequest, res: Response) => {
 
     const userId = req.user.id;
 
-    let user
+    let user;
     user = await User.findById(userId);
 
     if (!user) {
       user = await Doctor.findById(userId);
 
-      if(!user){
+      if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
     }
@@ -122,7 +138,6 @@ export const updateUserProfile = async (req: CustomRequest, res: Response) => {
   }
 };
 
-
 export const forgotPassword = async (req: Request, res: Response) => {
   const { email } = req.body;
   const { error } = validateUserPasswordReset(req.body);
@@ -134,19 +149,19 @@ export const forgotPassword = async (req: Request, res: Response) => {
   let user;
   user = await User.findOne({ email });
   if (!user) {
-    user = await Doctor.findOne({email})
-    if(!user){
+    user = await Doctor.findOne({ email });
+    if (!user) {
       return res.status(404).json({ message: "user not found" });
     }
   }
 
   try {
     const token = generateResetToken();
-    
+
     user.resetToken = token;
     user.tokenExpiration = Date.now() + 10 * 60 * 1000;
     await user.save();
-    
+
     const link = `http://localhost:5173/password/reset/${user.resetToken}`;
     new AppMail(user.email, user.firstname, link).resetEmailMessage();
     res.status(200).json({ message: "Password reset link sent to email" });
@@ -161,14 +176,13 @@ export const verifyToken = async (
   next: NextFunction
 ) => {
   try {
-
     let userTokenFound;
 
-   userTokenFound = await User.findOne({ resetToken: req.params.token });
+    userTokenFound = await User.findOne({ resetToken: req.params.token });
     if (!userTokenFound) {
-      userTokenFound = await Doctor.findOne({resetToken: req.params.token})
+      userTokenFound = await Doctor.findOne({ resetToken: req.params.token });
 
-      if(!userTokenFound){
+      if (!userTokenFound) {
         return res.status(404).json({ message: "token do not exist" });
       }
     }
@@ -199,7 +213,7 @@ export const resetPassword = async (
     userExists = await User.findOne({ resetToken: req.params.token });
     if (!userExists) {
       userExists = await Doctor.findOne({ resetToken: req.params.token });
-      if(!userExists){
+      if (!userExists) {
         return res.status(404).json({ message: "no user with toke found" });
       }
     }
@@ -214,42 +228,63 @@ export const resetPassword = async (
   } catch (error) {
     next(error);
   }
-}
-
+};
 
 export const findMe = async (req: any, res: Response, next: NextFunction) => {
   try {
     let user;
-    user = await User.findById(req.user.id).populate("doctor_id").exec()
-    if(!user) {
-      user = await Doctor.findById(req.user.id).populate("user_id").exec()
-      if(!user){
-        return res.status(200).json({message: "no user found", user})
+    user = await User.findById(req.user.id)
+      .populate({
+        path: "reports",
+        populate: {
+          path: "prediction_id",
+          populate: {
+            path: "doctor_id",
+          },
+        },
+      })
+      .exec();
+
+    if (!user) {
+      user = await Doctor.findById(req.user.id)
+        .populate({
+          path: "reports",
+          populate: {
+            path: "prediction_id",
+            populate: {
+              path: "doctor_id",
+            },
+          },
+        })
+        .exec();
+      if (!user) {
+        return res.status(200).json({ message: "no user found", user });
       }
     }
-    
-    user.password = ""
+
+    user.password = "";
+
     res.status(200).json({
-      message: " success",
-      user
-    })
-    
+      message: "success",
+      user,
+    });
   } catch (error) {
     next(error);
   }
 };
 
-
-
-export const findAll = async (req: Request, res: Response, next: NextFunction) => {
+export const findAll = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const users = await User.find()
-    .populate({
-      path: "reports",
-      populate: [{ path: "prediction_id", populate: { path: "doctor_id" } }],
-    })
-    .exec();
-
+      .populate({
+        path: "reports",
+        populate: [{ path: "prediction_id", populate: { path: "doctor_id" } }],
+      })
+      .exec();
 
     if (!users || users.length === 0) {
       return res.status(400).json({ message: "No users found" });
@@ -260,8 +295,11 @@ export const findAll = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
-
-export const findById = async (req: Request, res: Response, next: NextFunction) => {
+export const findById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const id = req.params.id;
   try {
     const user = await User.findById(id)
@@ -272,9 +310,11 @@ export const findById = async (req: Request, res: Response, next: NextFunction) 
       .exec();
 
     if (!user) {
-      return res.status(404).json({ message: "No user found with the provided ID" });
+      return res
+        .status(404)
+        .json({ message: "No user found with the provided ID" });
     }
-    user.password = ""
+    user.password = "";
     return res.status(200).json({ user });
   } catch (error) {
     next(error);

@@ -68,6 +68,8 @@ const userSchema = new mongoose.Schema<UserInterface>({
     }
   ],
 
+}, {
+  timestamps: true
 });
 
 export const User = mongoose.model<UserInterface>("User", userSchema);
