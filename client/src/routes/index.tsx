@@ -16,6 +16,8 @@ import {setupAxiosInterceptors } from "../services/interceptors"
 import DoctorAuth from "../services/DoctorAuth";
 import Auth from "../services/RoleGuard";
 import PatientReportsPage from "../pages/ReportsPagePatients"
+import ForgotPassword from "../pages/ForgotPassword"
+import ResetPassword from "../pages/ResetPassword"
 
 
 const AppRoutes = () => {
@@ -30,6 +32,8 @@ const AppRoutes = () => {
 				<Route path="/register" element={<Registration />} />
 				<Route path="/register/doctor" element={<DoctorRegistration />} />
 				<Route path="/register/patient" element={<PatientRegistration />} />
+				<Route path="/password/forgot" element={<ForgotPassword />} />
+				<Route path="/password/reset/:token" element={<ResetPassword/>} />
 				
 				<Route path="/login/doctor" element={<DoctorLoginPage />} />
 				<Route path="/login/patient" element={<PatientLoginPage />} />

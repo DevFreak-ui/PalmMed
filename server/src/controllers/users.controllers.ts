@@ -131,17 +131,23 @@ export const forgotPassword = async (req: Request, res: Response) => {
     return res.status(400).json({ message: error.details[0].message });
   }
 
-  const user = await User.findOne({ email });
-  if (!user) return res.status(404).json({ message: "user not found" });
+  let user;
+  user = await User.findOne({ email });
+  if (!user) {
+    user = await Doctor.findOne({email})
+    if(!user){
+      return res.status(404).json({ message: "user not found" });
+    }
+  }
 
   try {
     const token = generateResetToken();
-    const link = `https://localhost:5173/password/reset/${token}`;
-
+    
     user.resetToken = token;
     user.tokenExpiration = Date.now() + 10 * 60 * 1000;
     await user.save();
-
+    
+    const link = `http://localhost:5173/password/reset/${user.resetToken}`;
     new AppMail(user.email, user.firstname, link).resetEmailMessage();
     res.status(200).json({ message: "Password reset link sent to email" });
   } catch (emailError) {
@@ -155,9 +161,16 @@ export const verifyToken = async (
   next: NextFunction
 ) => {
   try {
-    const userTokenFound = await User.findOne({ resetToken: req.params.token });
+
+    let userTokenFound;
+
+   userTokenFound = await User.findOne({ resetToken: req.params.token });
     if (!userTokenFound) {
-      return res.status(404).json({ message: "token do not exist" });
+      userTokenFound = await Doctor.findOne({resetToken: req.params.token})
+
+      if(!userTokenFound){
+        return res.status(404).json({ message: "token do not exist" });
+      }
     }
 
     if (
@@ -182,10 +195,13 @@ export const resetPassword = async (
     const { error } = validateUserPasswordDetails(req.body);
     if (error)
       return res.status(400).json({ message: error.details[0].message });
-
-    const userExists = await User.findOne({ resetToken: req.params.token });
+    let userExists;
+    userExists = await User.findOne({ resetToken: req.params.token });
     if (!userExists) {
-      return res.status(404).json({ message: "no user with toke found" });
+      userExists = await Doctor.findOne({ resetToken: req.params.token });
+      if(!userExists){
+        return res.status(404).json({ message: "no user with toke found" });
+      }
     }
 
     const salt = await bcrypt.genSalt(12);
