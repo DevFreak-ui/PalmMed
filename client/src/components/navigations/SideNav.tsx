@@ -13,11 +13,13 @@ const SideNav = () => {
     try {
       const postData = {
         email: "yeboahandy@gmail.com",
-        user_id: "662b7c1a1f61bc617c34635f"
+        user_id: "662b7c1a1f61bc617c34635f",
       };
-      const response = await axios.post("http://localhost:6200/api/v1/chats/initiate-chat", postData)
-      console.log(response.data)
-  
+      const response = await axios.post(
+        "http://localhost:6200/api/v1/chats/initiate-chat",
+        postData
+      );
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -112,9 +114,13 @@ const SideNav = () => {
           </li>
           <Link
             to="/dashboard/patient/report"
-            className="flex items-center justify-between space-x-2 my-4 py-2 pr-2 dark:text-slate-400 cursor-pointer">
-              <span>Reports</span>
-              <span> <IoIosArrowRoundForward size={18} /> </span>
+            className="flex items-center justify-between space-x-2 my-4 py-2 pr-2 dark:text-slate-400 cursor-pointer"
+          >
+            <span>Reports</span>
+            <span>
+              {" "}
+              <IoIosArrowRoundForward size={18} />{" "}
+            </span>
           </Link>
         </ul>
 
@@ -144,7 +150,7 @@ const SideNav = () => {
           </li>
           <li>
             <Link
-              to="/inbox"
+              to="/PatientAccountSettingsPage"
               className="flex items-center p-2 text-sm text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <span>
