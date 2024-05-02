@@ -95,3 +95,26 @@ export const editreport = async (
     next(error);
   }
 };
+
+
+
+
+export const deleteReport = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const report = await Reports.findById(req.params.id);
+    if (!report) {
+      return res.status(404).json({ message: "no data found" });
+    }
+
+    await Reports.findByIdAndDelete(req.params.id)
+    return res
+      .status(200)
+      .json({ message: "Report deleted successfully"});
+  } catch (error) {
+    next(error);
+  }
+};
