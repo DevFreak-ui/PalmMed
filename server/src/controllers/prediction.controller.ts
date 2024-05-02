@@ -15,6 +15,13 @@ export const predict = async (req: any, res: Response) => {
       req.body
     );
 
+    // const newBody = {
+    //   ...req.body,
+    //   ...response.data
+    // }
+
+    // console.log(newBody)
+
     const newbody = {
       ...req.body,
       ...response.data,
@@ -38,6 +45,7 @@ export const predict = async (req: any, res: Response) => {
         doctor_id: req.user.id,
         prediction: response.data,
         user_id: user._id,
+        ai_assisted_text: reponseData.data,
       });
       if (!results) {
         return res.status(400).json({ message: "prediction failed" });
