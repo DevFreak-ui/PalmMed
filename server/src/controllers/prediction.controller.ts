@@ -22,17 +22,30 @@ export const predict = async (req: any, res: Response) => {
 
     // console.log(newBody)
 
+    const newbody = {
+      ...req.body,
+      ...response.data,
+    };
+
+    const finalBody = {
+      patient_report: newbody,
+    };
+
+    const finalJSON = JSON.stringify(finalBody);
+    console.log(finalJSON);
+    
+
     if (response.data) {
       const reponseData = await axios.post(
         "https://hearty-o4ui.onrender.com/api/v1/llm/predict",
-        response.data
+        finalBody
       );
       const results = await Prediction.create({
         ...req.body,
         doctor_id: req.user.id,
         prediction: response.data,
         user_id: user._id,
-        ai_assisted_text: reponseData.data
+        ai_assisted_text: reponseData.data,
       });
       if (!results) {
         return res.status(400).json({ message: "prediction failed" });
