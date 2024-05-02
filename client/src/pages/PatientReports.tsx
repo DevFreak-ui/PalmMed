@@ -130,7 +130,7 @@ const PatientReports: React.FC = () => {
                 </td>
                 <td className="pl-3 py-4 w-1/6 flex space-x-4 items-center">
                   <button
-                    className="hover:text-yellow-300"
+                    className="hover:text-yellow-300 border"
                     onClick={handleOpenViewPatientDetailsModal}
                   >
                     <FaEye size="1.4em" />
