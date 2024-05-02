@@ -8,22 +8,6 @@ const ForgotPassword = () => {
     const { enqueueSnackbar } = useSnackbar();
     const emailRef = useRef<HTMLInputElement>(null)
 
-//   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     const email = emailRef.current?.value
-//     const data = {
-//         email
-//     }
-//     const response = await axios.post(`${baseURL}/users/forgot-password`, data)
-//     if(response.status === 200 || response.status === 201){
-//         enqueueSnackbar("Reset Link is sent to your email please check", { variant: "success" });
-//     }
-
-//     if(response.status === 404){
-//         enqueueSnackbar("Something went wrong please check your email", { variant: "error" });
-//     }
-//   };
-
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current?.value;
@@ -47,16 +31,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     }
   };
   
-
-
-
-
-
-
-
-
-
-
 
   return (
     <div className="min-h-screen bg-slate-300 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -99,7 +73,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           </form>
         </div>
       </div>
-      <p className="mt-4 text-center text-sm text-gray-600">Need further assistance? Please contact our support team at <a href="tel:123-456-7890" className="text-indigo-600 hover:text-indigo-700">123-456-7890</a>.</p>
+      <p className="mt-4 text-center text-sm text-gray-600">Need further assistance? Please contact our support team at <a href="tel:+233-249-300-617" className="text-indigo-600 hover:text-indigo-700">233-249-300-617</a>.</p>
     </div>
   );
 };
