@@ -73,7 +73,17 @@ const PatientReportsPage: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  console.log(reports);
+  const handleDelete = async(id: string) => {
+    try {
+      const response = await axios.delete(`${baseURL}/reports/delete/${id}`)
+      if(response.status === 200){
+        alert("sucessfully deleted data")
+        window.location.reload();
+      }
+    } catch (error) {
+      alert("Something went wrong")
+    }
+  }
 
   return (
     <section className="bg-white dark:bg-gray-900 mt-5 min-h-[83vh] flex flex-col">
@@ -184,7 +194,7 @@ const PatientReportsPage: React.FC = () => {
                   >
                     <FaEye size="1.2em" />
                   </button>
-                  <button className="hover:text-red-600">
+                  <button className="hover:text-red-600" onClick={()=> handleDelete(report._id)}>
                     {" "}
                     <MdDelete size="1.2em" />{" "}
                   </button>
