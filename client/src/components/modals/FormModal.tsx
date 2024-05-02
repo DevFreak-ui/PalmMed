@@ -322,10 +322,10 @@ const FormModal = ({ id }: IFormModal) => {
                 </span>
                 <input
                   onChange={handleInputChange}
-                  value={formData.slope}
-                  name="slope"
+                  value={formData.chol}
+                  name="chol"
                   type="number"
-                  id="slope"
+                  id="chol"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="value (mg/dl)"
                   required
@@ -362,9 +362,11 @@ const FormModal = ({ id }: IFormModal) => {
                   id="fbs"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option selected>above 120mg/dl</option>
-                  <option value="1">Yes</option>
-                  <option value="0">No</option>
+                  {/* <option selected>above 120mg/dl</option> */}
+                  <option value="1" selected>
+                    Above 120mg/dl
+                  </option>
+                  <option value="0">Below 120mg/dl</option>
                 </select>
               </div>
               <div>
@@ -429,10 +431,10 @@ const FormModal = ({ id }: IFormModal) => {
                 </span>
                 <input
                   onChange={handleInputChange}
-                  value={formData.ca}
-                  name="ca"
+                  value={formData.thalach}
+                  name="thalach"
                   type="number"
-                  id="ca"
+                  id="thalach"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="value"
                   required
@@ -499,10 +501,10 @@ const FormModal = ({ id }: IFormModal) => {
                 </span>
                 <input
                   onChange={handleInputChange}
-                  value={formData.chol}
-                  name="chol"
+                  value={formData.oldpeak}
+                  name="oldpeak"
                   type="number"
-                  id="chol"
+                  id="oldpeak"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="value"
                   required
@@ -534,14 +536,14 @@ const FormModal = ({ id }: IFormModal) => {
                 </span>
                 <select
                   onChange={handleInputChange}
-                  value={formData.oldpeak}
-                  name="oldpeak"
-                  id="oldpeak"
+                  value={formData.slope}
+                  name="slope"
+                  id="slope"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option value="0">Upsloping</option>
-                  <option value="1">Flat</option>
-                  <option value="2">Downsloping</option>
+                  <option value="1">Upsloping</option>
+                  <option value="2">Flat</option>
+                  <option value="3">Downsloping</option>
                 </select>
               </div>
               <div>
@@ -604,17 +606,16 @@ const FormModal = ({ id }: IFormModal) => {
                     <div className="tooltip-arrow" data-popper-arrow></div>
                   </div>
                 </span>
-                <select
+                <input
                   onChange={handleInputChange}
-                  value={formData.thalach}
-                  name="thalach"
-                  id="thalach"
+                  value={formData.ca}
+                  name="ca"
+                  type="number"
+                  id="ca"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
+                  placeholder="value"
+                  required
+                />
               </div>
               <div className="flex items-start mb-5 px-1 pb-1">
                 <div className="flex items-center h-5">
