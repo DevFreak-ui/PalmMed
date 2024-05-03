@@ -5,7 +5,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from fastapi import HTTPException, status
 from schemas.llm_schemas import PredictionSchema
-from utils.formatting import convert_data
+from formatting import convert_data
 
 llm = ChatOpenAI(
     api_key=os.getenv('OPENAI_API_KEY'),
