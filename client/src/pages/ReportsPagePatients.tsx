@@ -10,6 +10,7 @@ import { useAppSelector, useAppDispatch } from "../hooks";
 import { openViewPatientDetailsModal } from "../redux/features/modal/modalSlice";
 import PatientViewReportDetails from "../components/modals/PatientViewReportDetails";
 import { Link } from "react-router-dom";
+import { updateReportId } from "../redux/features/reportId/reportIdSlice";
 
 const reportId = "fdfdffsdsds";
 
@@ -38,6 +39,9 @@ const PatientReportsPage: React.FC = () => {
     },
   };
 
+   const setNewReportId = (id: string) => {
+     dispatch(updateReportId(id));
+   };
   // To be obtained from another endpoint
   const dummyPatientName = {
     name: "Prince Mireku",
@@ -152,12 +156,14 @@ const PatientReportsPage: React.FC = () => {
                     : "N/A"}
                 </td>
                 <td className="px-6 py-4 w-1/6">
-                {report.prediction_id.prediction.prediction || "N/A"}
+                  {report.prediction_id.prediction.prediction || "N/A"}
                 </td>
                 <td className="px-6 py-4 w-1/6">
-                {`${report.prediction_id.prediction.confidence}%` || "N/A"}
+                  {`${report.prediction_id.prediction.confidence}%` || "N/A"}
                 </td>
-                <td className="px-6 py-4 w-1/6">{moment(report.createdAt).format("DD-MM-YYYY") || "N/A"}</td>
+                <td className="px-6 py-4 w-1/6">
+                  {moment(report.createdAt).format("DD-MM-YYYY") || "N/A"}
+                </td>
                 <td className="px-6 py-4 w-1/6">
                   <button
                     onClick={() => handleContextGeneration(reportId)}
@@ -193,9 +199,17 @@ const PatientReportsPage: React.FC = () => {
                     className="hover:text-yellow-300"
                     onClick={handleOpenViewPatientDetailsModal}
                   >
-                    <FaEye size="1.2em" />
+                    <FaEye
+                      size="1.2em"
+                      onClick={() => {
+                        setNewReportId(report._id);
+                      }}
+                    />
                   </button>
-                  <button className="hover:text-red-600" onClick={()=> handleDelete(report._id)}>
+                  <button
+                    className="hover:text-red-600"
+                    onClick={() => handleDelete(report._id)}
+                  >
                     {" "}
                     <MdDelete size="1.2em" />{" "}
                   </button>

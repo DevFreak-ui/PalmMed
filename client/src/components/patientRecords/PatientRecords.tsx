@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../../services/baseURL";
 import PredicitonResultsModal from "../modals/PredictionResultsModal";
+import moment from "moment";
 
 const PatientRecords = () => {
   const [allUsers, setAllUser] = useState([]);
@@ -45,9 +46,9 @@ const PatientRecords = () => {
             <th className="px-6 py-3 w-1/6">Last Name</th>
             <th className="px-6 py-3 w-1/6">Email</th>
             <th className="px-6 py-3 w-1/6">Account Created</th>
-            <th className="px-6 py-3 w-1/6">Heart Disease %</th>
+            <th className="px-6 py-3 w-1/6">Phone Number</th>
             <th className="px-6 py-3 w-1/6">Action</th>
-            <th className="px-6 py-3 w-1/6">AI / PalmGPT</th>
+           
           </tr>
         </thead>
         <tbody>
@@ -59,16 +60,9 @@ const PatientRecords = () => {
               <td className="px-6 py-4 w-1/6 captalize ">{user.firstname}</td>
               <td className="px-6 py-4 w-1/6">{user.lastname}</td>
               <td className="px-6 py-4 w-1/6">{user.email}</td>
+              <td className="px-6 py-4 w-1/6">{moment(user.createdAt).format("MMM Do YY")}</td>
               <td className="px-6 py-4 w-1/6">N/A</td>
-              <td className="px-6 py-4 w-1/6">N/A</td>
-              <td className="px-6 py-4 w-1/6 flex space-x-4 items-center">
-                <button className="hover:text-green-400">
-                  <RiEdit2Line size="1.4em" />
-                </button>
-                <button className="hover:text-red-600">
-                  <MdDelete size="1.4em" />
-                </button>
-              </td>
+             
               <td className="px-6 py-4 w-1/6">
                 <button
                   className=""
