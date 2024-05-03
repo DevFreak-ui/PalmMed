@@ -6,9 +6,9 @@ export const initiateMessage = async (req: Request, res: Response, next: NextFun
     try {
         const results = await createMessage(req);
         if(results.status !== "success"){
-            return res.status(400).json(results)
+            return res.status(201).json(results)
         }
-        return res.status(201).json(results)
+        return res.status(400).json(results)
     } catch(error) {
         return next(error);
     }
