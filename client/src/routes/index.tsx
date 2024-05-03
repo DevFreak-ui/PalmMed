@@ -13,6 +13,7 @@ import PatientReports from "../pages/PatientReports"
 import DoctorLoginPage from "../pages/DoctorLoginPage"
 import PatientLoginPage from "../pages/PatientLoginPage"
 import {setupAxiosInterceptors } from "../services/interceptors"
+import PatientChatGuide from "../components/PatientChatGuide"
 import DoctorAuth from "../services/DoctorAuth";
 import Auth from "../services/RoleGuard";
 import PatientReportsPage from "../pages/ReportsPagePatients"
@@ -42,6 +43,7 @@ const AppRoutes = () => {
 					<Route index element={<MainPage />} />
 					<Route path="/dashboard/patient/palm-gpt" element={<PalmGPTChat />} />
 					<Route path="/dashboard/patient/report" element={<PatientReportsPage />} />
+					<Route path="/dashboard/patient/chat-guide" element={<PatientChatGuide />} />
 				</Route>
 
 				<Route path="/dashboard/doctor" element={<DoctorAuth><DoctorContainer /></DoctorAuth>} >

@@ -9,19 +9,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SideNav = () => {
-  const initiateChat = async () => {
-    try {
-      const postData = {
-        email: "yeboahandy@gmail.com",
-        user_id: "662b7c1a1f61bc617c34635f"
-      };
-      const response = await axios.post("http://localhost:6200/api/v1/chats/initiate-chat", postData)
-      console.log(response.data)
   
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <aside
       className="fixed top-0 left-0 z-40 w-64 h-screen pt-6 transition-transform -translate-x-full bg-[#F6F8FA] md:translate-x-0 dark:bg-gray-800 dark:-gray-700"
@@ -29,20 +17,16 @@ const SideNav = () => {
       id="drawer-navigation"
     >
       <div className="py-2 px-4 h-full bg-[#F6F8FA] dark:bg-gray-800  flex flex-col justify-between">
-        <div className=" rounded-[150px] bg-gray-300 dark:bg-gray-700 p-1 w-2/3">
+        <div className="p-1 w-2/3 border-b border-dashed border-gray-600">
           <div
-            onClick={initiateChat}
-            className="flex items-center space-x-2 text-sm  p-2 dark:text-slate-400 cursor-pointer"
+            className="text-2xl font-bold dark:text-slate-400 cursor-pointer"
           >
-            <span>
-              <HiPlusSm size={24} />
-            </span>
-            <span>New Chat</span>
+            <span>PalmMed</span>
           </div>
         </div>
 
         {/* Static Navigations */}
-        <ul className="space-y-1 mt-6 mb-12 ">
+        <ul className="mt-6 mb-8 ">
           <span>History</span>
           <li>
             <Link
@@ -110,24 +94,25 @@ const SideNav = () => {
               <span className="ml-4">Recent chat...</span>
             </Link>
           </li>
-          <Link
-            to="/dashboard/patient/report"
-            className="flex items-center justify-between space-x-2 my-4 py-2 pr-2 dark:text-slate-400 cursor-pointer">
-              <span>Reports</span>
-              <span> <IoIosArrowRoundForward size={18} /> </span>
-          </Link>
+          
         </ul>
+        <Link
+          to="/dashboard/patient/report"
+          className="flex items-center justify-between space-x-2 mb-6 p-2 dark:text-slate-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 group rounded-lg">
+            <span>Reports</span>
+            <span> <IoIosArrowRoundForward size={18} /> </span>
+        </Link>
 
         {/* Static Navigations */}
         <Link
-          to="/palm-gpt"
-          className="w-10/12 mx-auto flex flex-col items-center justify-center text-sm rounded-[12px] h-[200px] bg-gray-500/30 space-y-4 text-gray-400/80"
+          to="/dashboard/patient/chat-guide"
+          className="w-10/12 p-2 text-center mx-auto flex flex-col items-center justify-center text-sm font-medium rounded-[12px] h-[200px] bg-gray-500/30 space-y-4 text-gray-400/80"
         >
           <span className="">
             {" "}
-            <FaRegCircleQuestion size={32} />
+            <FaRegCircleQuestion size={26} />
           </span>
-          <p>Talk to PalmGPT</p>
+          <p>Gain insight into your health report. Click me to see how</p>
         </Link>
 
         <ul className="space-y-1 my-2 ">
