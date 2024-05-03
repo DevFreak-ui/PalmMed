@@ -6,7 +6,7 @@ import redis
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from schemas.llm_schemas import PredictionSchema, PromptSchema, ContextSchema
-from utils.formatting import convert_data
+from formatting import convert_data
 from fastapi import HTTPException, status
 from langchain_community.chat_message_histories.upstash_redis import (
     UpstashRedisChatMessageHistory
