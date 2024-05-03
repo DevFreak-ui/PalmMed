@@ -56,6 +56,21 @@ const PatientReports: React.FC = () => {
   //   const reportsData = reportsTransformer(reports)
   console.log(reports);
 
+
+
+ const handleDelete = async (id: string) => {
+   try {
+     const response = await axios.delete(`${baseURL}/reports/delete/${id}`);
+     if (response.status === 200) {
+       alert("sucessfully deleted data");
+       window.location.reload();
+     }
+   } catch (error) {
+     alert("Something went wrong");
+   }
+ };
+
+
   return (
     <section className="bg-white dark:bg-gray-900 mt-5 min-h-[83vh] flex flex-col">
       <div className="mx-2 my-4">
@@ -136,25 +151,26 @@ const PatientReports: React.FC = () => {
                   </button>
                 </td>
                 <td className="pl-3 py-4 w-1/6 flex space-x-4 items-center">
-                 
-                    <button
-                      className="hover:text-yellow-300 "
-                      onClick={handleOpenViewPatientDetailsModal}
-                    >
-                      <FaEye
-                        size="1.4em"
-                        onClick={() => {
-                          setNewReportId(report._id);
-                        }}
-                      />
-                    </button>
-               
+                  <button
+                    className="hover:text-yellow-300 "
+                    onClick={handleOpenViewPatientDetailsModal}
+                  >
+                    <FaEye
+                      size="1.4em"
+                      onClick={() => {
+                        setNewReportId(report._id);
+                      }}
+                    />
+                  </button>
 
                   <button className="hover:text-green-400">
                     {" "}
                     <RiEdit2Line size="1.4em" />{" "}
                   </button>
-                  <button className="hover:text-red-600">
+                  <button
+                    className="hover:text-red-600"
+                    onClick={() => handleDelete(report._id)}
+                  >
                     {" "}
                     <MdDelete size="1.4em" />{" "}
                   </button>
