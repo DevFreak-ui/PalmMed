@@ -5,6 +5,7 @@ import Profile from '../assets/images/avatar.png';
 import { CiExport } from "react-icons/ci";
 import jsPDF from 'jspdf';
 import { splitTextIntoLines } from '../helpers';
+import { IoIosSend } from "react-icons/io"
 
 const PalmGPTChat: React.FC = () => {
     const [chatHistory, setChatHistory] = useState<Array<{sender: string, message: string}>>([]);
@@ -95,14 +96,19 @@ const PalmGPTChat: React.FC = () => {
             )}
 
             {/* Input Field */}
-            <input
-                type="text"
-                value={userInput}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress}
-                placeholder="Ask something..."
-                className="w-[50%] p-4 border rounded shadow-sm fixed bottom-8 dark:bg-gray-800 focus:ring-0 focus:outline-none focus:border-gray-400"
-            />
+            <div className='flex items-center fixed bottom-8 w-[50%] border rounded dark:bg-gray-800 shadow-sm dark:border-gray-400 focus:border-gray-400'>
+                <input
+                    type="text"
+                    value={userInput}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Ask something..."
+                    className="w-[95%] p-4 bg-transparent border-0 focus:ring-0 focus:outline-none focus:border-0"
+                />
+                <button type="submit" className="bg-gray-400/50 text-white rounded-md p-2 mx-2">
+                    <IoIosSend size={18} />
+                </button>
+            </div>
         </div>
     );
 }

@@ -11,7 +11,7 @@ class AppMail {
     public recipientMail: string, 
     public recipientName?: string, 
     public resetUrl?: string,
-    public report?: string
+    public report?: any
   ){}
 
   private template = handlebars.compile(resetTemplate);

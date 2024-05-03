@@ -4,91 +4,91 @@ import Joi, { ValidationResult } from "joi";
 const predictionSchema = new mongoose.Schema<any>({
   age: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   sex: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   cp: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   trestbps: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   chol: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
   
   fbs: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   restecg: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   thalach: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   exang: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   oldpeak: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   slope: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   ca: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
 
   thal: {
     type: Number,
-    minlength: 3,
+    minlength: 0,
     maxlength: 256,
     required: true,
   },
@@ -111,7 +111,11 @@ const predictionSchema = new mongoose.Schema<any>({
     {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }
+    },
+
+    ai_assisted_text: {
+      type: String,
+    },
   
 });
 

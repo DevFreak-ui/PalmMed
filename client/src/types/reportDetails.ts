@@ -1,0 +1,61 @@
+export const reportTypes = {
+  report: {
+    _id: "6632ecd95606d7c2d3e4992b",
+    prediction_id: {
+      _id: "6632eccd5606d7c2d3e49925",
+      age: 23,
+      sex: 0,
+      cp: 0,
+      trestbps: 3,
+      chol: 3,
+      fbs: 1,
+      restecg: 0,
+      thalach: 0,
+      exang: 1,
+      oldpeak: 0,
+      slope: 2,
+      ca: 2,
+      thal: 0,
+      reports: [],
+      prediction: {
+        confidence: 55.1,
+        prediction: "You do not have heart disease",
+      },
+      doctor_id: {
+        _id: "662fba8e781b6164f2d028ab",
+        firstname: "Maa",
+        lastname: "Dee",
+        email: "mdd@gmail.com",
+        role: "doctor",
+        reports: [],
+        user_id: [],
+        password:
+          "$2b$12$MOqQjvIcl2o.kjH20NVcoO1EdcGM7uZJ7qNPSLnRMVmVoJA.w5Tz.",
+        __v: 0,
+      },
+      user_id: {
+        _id: "662b8cbd066657cd8ff47fac",
+        firstname: "BERNARD",
+        lastname: "TURKSON",
+        email: "bkturkson@gmail.com",
+        password:
+          "$2b$12$fYD4qb/ZjfrMSqJzeqVHR.du2xOREC41sJrvoUQy8.RdwmQfu5d9a",
+        __v: 4,
+        reports: [
+          "66313f84b3d01d97fe71d3aa",
+          "66313fffb3d01d97fe71d3b1",
+          "66322a022f8bc380bf07ecd6",
+          "6632ecd95606d7c2d3e4992b",
+        ],
+        role: "user",
+      },
+      ai_assisted_text:
+        "Based on the data provided for the patient - a 23-year-old female with typical angina, normal resting blood pressure and cholesterol levels, fasting blood sugar indicating hyperglycemia, normal resting electrocardiographic results, exercise-induced angina, flat slope of peak exercise ST segment, 2 major vessels colored by flourosopy, and normal Thallium stress test results - the AI model has predicted with a confidence level of 55.1% that the patient does not have heart disease.\n\nAs a cardiologist, I would advise the doctor to interpret this prediction with caution due to the relatively low confidence level. It is important to consider the patient's age, gender, and the presence of symptoms such as typical angina and exercise-induced angina, which may warrant further investigation.\n\nI recommend that the doctor discusses the results with the patient in a clear and empathetic manner, explaining the limitations of the AI model and the need for further evaluation. It would be prudent to conduct additional tests such as a stress echocardiogram or coronary angiography to rule out any potential underlying heart disease, especially given the patient's symptoms and risk factors.\n\nEncouraging the patient to maintain a healthy lifestyle with regular exercise, a balanced diet, and stress management is also important for overall cardiovascular health. Regular follow-up appointments and monitoring of symptoms are essential to ensure the patient's well-being and to address any concerns that may arise.\n\nIn conclusion, while the AI model suggests a low likelihood of heart disease in this patient, it is crucial to approach the situation with a comprehensive and individualized perspective, taking into account the patient's unique characteristics and clinical presentation.",
+      __v: 0,
+    },
+    verdict: "wewewe",
+    createdAt: "2024-05-02T01:31:05.566Z",
+    updatedAt: "2024-05-02T01:31:05.566Z",
+    __v: 0,
+  },
+};

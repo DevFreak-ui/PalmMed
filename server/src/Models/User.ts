@@ -54,15 +54,22 @@ const userSchema = new mongoose.Schema<UserInterface>({
     required: false,
   },
 
-  doctor_id: [
+  doctor_id:
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Doctor"
     }
+  ,
+
+  reports: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Reports"
+    }
   ],
 
-  reports: [],
-
+}, {
+  timestamps: true
 });
 
 export const User = mongoose.model<UserInterface>("User", userSchema);
