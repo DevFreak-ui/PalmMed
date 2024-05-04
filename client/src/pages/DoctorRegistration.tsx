@@ -1,58 +1,62 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import FeatureCard from "../components/cards/FeatureCard";
-import GoogleButton from "../components/buttons/GoogleButton.tsx";
-import AppleButton from "../components/buttons/AppleButton.tsx";
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import { useState, ChangeEvent, FormEvent } from 'react';
+import axios from 'axios'; // Import axios for making HTTP requests
+import { Link } from 'react-router-dom';
+import FeatureCard from '../components/cards/FeatureCard';
+import GoogleButton from '../components/buttons/GoogleButton.tsx';
+import AppleButton from '../components/buttons/AppleButton.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+
 
 const DoctorRegistration = () => {
-  const navigate = useNavigate();
+    
+  const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar();
 
+  // State variables to capture form data
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+   
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value, type } = e.target;
-    let val: string | boolean = value;
-    if (type === "checkbox") {
-      val = (e.target as HTMLInputElement).checked;
-    }
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: val,
-    }));
-  };
+  // Handler to update form data
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const { name, value, type } = e.target;
+  let val: string | boolean = value;
+  if (type === 'checkbox') {
+    val = (e.target as HTMLInputElement).checked;
+  }
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: val,
+  }));
+};
+  // console.log(formData);
 
+  // Handler for form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+      console.log(formData);
     try {
-      const response = await axios.post(
-        "http://localhost:6200/api/v1/doctors/create",
-        formData
-      );
-      console.log(response.data);
-      enqueueSnackbar("User Created Successfully", { variant: "success" });
-      navigate("/login/doctor");
+      // Send form data to the backend
+      const response = await axios.post('http://localhost:6200/api/v1/doctors/create', formData);
+      console.log(response.data); // Handle success response
+      enqueueSnackbar("User Created Successfully", { variant: "success" })
+      navigate("/login/doctor")
+
     } catch (error) {
-      console.error("Registration failed:", error);
-      enqueueSnackbar("Registration Error", { variant: "error" });
+      console.error('Registration failed:', error); // Handle error response
+       enqueueSnackbar("Registration Error" , {variant:"error"})
     }
   };
   return (
     <div className="min-h-screen bg-[url('./assets/images/register-bg.JPG')] bg-no-repeat bg-center p-2 flex items-center justify-center">
       <section className="flex flex-col lg:flex-row w-[80%] justify-around">
         <div className="w-[45%] flex flex-col mt-8">
-          <h1 className="text-neutral-100 text-opacity-95 text-[32px] font-semibold font-['Inter'] leading-[48px] my-6 ">
+          <h1 className="text-neutral-100 text-opacity-95 text-[32px] font-semibold font-['Inter'] leading-[48px] my-6 " >
             Doctor Registration
           </h1>
 
@@ -90,10 +94,7 @@ const DoctorRegistration = () => {
             <form className="space-y-4 md:space-y-4" onSubmit={handleSubmit}>
               <div className="flex space-x-4">
                 <div className="w-1/2">
-                  <label
-                    htmlFor="firstName"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
+                  <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900">
                     First Name
                   </label>
                   <input
@@ -108,10 +109,7 @@ const DoctorRegistration = () => {
                   />
                 </div>
                 <div className="w-1/2">
-                  <label
-                    htmlFor="surname"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
+                  <label htmlFor="surname" className="block mb-2 text-sm font-medium text-gray-900">
                     Last Name
                   </label>
                   <input
@@ -127,10 +125,7 @@ const DoctorRegistration = () => {
                 </div>
               </div>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
                   Your email
                 </label>
                 <input
@@ -145,11 +140,8 @@ const DoctorRegistration = () => {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Password
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
+                   Password
                 </label>
                 <input
                   type="password"
@@ -171,38 +163,27 @@ const DoctorRegistration = () => {
                     type="checkbox"
                     className="w-5 h-5 border rounded focus:ring-3 bg-gray-200 border-gray-500 focus:ring-purple-600 ring-offset-purple-800"
                     name="termsAgreed"
+                    
                     required
                   />
                 </div>
                 <div className="ml-3 text-sm">
                   <label htmlFor="terms" className="font-light text-gray-500">
-                    By signing up, you are creating a TaskPulse account, and you
-                    agree to TaskPulse’s{" "}
-                    <a
-                      className="font-medium text-primary-600 underline text-primary-500"
-                      href="#"
-                    >
+                    By signing up, you are creating a TaskPulse account, and you agree to TaskPulse’s{' '}
+                    <a className="font-medium text-primary-600 underline text-primary-500" href="#">
                       Terms of Use
-                    </a>{" "}
-                    <span>and</span>{" "}
-                    <a
-                      className="font-medium text-primary-600 underline text-primary-500"
-                      href="#"
-                    >
+                    </a>{' '}
+                    <span>and</span>{' '}
+                    <a className="font-medium text-primary-600 underline text-primary-500" href="#">
                       Privacy Policy
                     </a>
                   </label>
                 </div>
               </div>
-              <button className="p-3 rounded-xl bg-gray-400">
-                Create Account
-              </button>
+            <button className='p-3 rounded-xl bg-gray-400'>Create Account</button>
               <p className="text-zinc-950 text-opacity-90 text-[15px] font-light font-['Inter'] leading-snug">
-                Already have an account?{" "}
-                <Link
-                  to="/login/doctor"
-                  className="text-violet-500 text-[15px] font-semibold font-['Inter'] leading-snug"
-                >
+                Already have an account?{' '}
+                <Link to="/login/doctor" className="text-violet-500 text-[15px] font-semibold font-['Inter'] leading-snug">
                   Sign In here
                 </Link>
               </p>
