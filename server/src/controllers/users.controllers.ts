@@ -88,12 +88,6 @@ export const login = async (req: Request, res: Response) => {
   const token = jwt.sign({ id: user._id }, `${process.env.JWT_PRIVATE_KEY}`);
   // , {expiresIn: "15m"}
 
-  res.status(200).json({
-    status: "success",
-    message: "Successfully logged in",
-    token: token,
-    role: user.role,
-  });
   res
     .status(200)
     .json({
@@ -110,6 +104,7 @@ const generateResetToken = () => {
   return hashedToken;
 };
 
+//update use profile
 export const updateUserProfile = async (req: CustomRequest, res: Response) => {
   try {
     if (!req.user) {
@@ -238,9 +233,6 @@ export const resetPassword = async (
 export const findMe = async (req: any, res: Response, next: NextFunction) => {
   try {
     let user;
-    user = await User.findById(req.user.id).populate("doctor_id").exec();
-    if (!user) {
-      user = await Doctor.findById(req.user.id).populate("user_id").exec();
     user = await User.findById(req.user.id)
       .populate({
         path: "reports",
@@ -271,8 +263,6 @@ export const findMe = async (req: any, res: Response, next: NextFunction) => {
     }
 
     user.password = "";
-    res.status(200).json({
-      message: " success",
 
     res.status(200).json({
       message: "success",

@@ -1,40 +1,40 @@
-import { useState } from "react";
+import  { useState } from "react";
 import Illustration from "../assets/images/illustration.svg";
 import GoogleButton from "../components/buttons/GoogleButton.tsx";
 import AppleButton from "../components/buttons/AppleButton.tsx";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
+import axios from "axios"; // Import axios for making HTTP requests
+import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const DoctorLoginPage = () => {
-  const navigate = useNavigate();
+
+const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar();
+
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleChange = (e: { target: { name: any; value: any } }) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:6200/api/v1/users/login",
-        formData
-      );
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role);
-      enqueueSnackbar("Login Successful", { variant: "success" });
-      navigate("/dashboard/doctor");
-    } catch (error) {
-      console.error("Login failed:");
-      enqueueSnackbar("Login Error", { variant: "error" });
-    }
+      try {
+        const response = await axios.post("http://localhost:6200/api/v1/users/login", formData);
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("role", response.data.role)
+        enqueueSnackbar("Login Successful", { variant: "success" })
+        navigate("/dashboard/doctor")
+      } catch (error) {
+        console.error("Login failed:");
+        enqueueSnackbar("Login Error" , {variant:"error"})
+        // Handle login failure, show error message to the user, etc.
+      }
   };
 
   return (
@@ -43,15 +43,12 @@ const DoctorLoginPage = () => {
         <section className="rounded-lg shadow-lg w-[500px] bg-gray-50">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl">
-              Sign In to Your Doctor Account
+              Sign In to Your Doctor  Account
             </h1>
 
             <form className="space-y-4 md:space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
                   Your email
                 </label>
                 <input
@@ -66,10 +63,7 @@ const DoctorLoginPage = () => {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
                   Password
                 </label>
                 <input
@@ -84,10 +78,7 @@ const DoctorLoginPage = () => {
                 />
               </div>
               <div className="py-2">
-                <button
-                  type="submit"
-                  className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
+                <button type="submit" className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Sign In
                 </button>
               </div>
@@ -95,7 +86,7 @@ const DoctorLoginPage = () => {
               <p className="text-zinc-950 text-opacity-90 text-[15px] font-light font-['Inter'] leading-snug">
                 Don't have an account?{" "}
                 <Link
-                  to="/register/doctor"
+                  to="/register"
                   className="text-violet-500 text-[15px] font-semibold font-['Inter'] leading-snug"
                 >
                   Register here
@@ -115,8 +106,9 @@ const DoctorLoginPage = () => {
                 or
               </div>
               <div className="flex items-start justify-between">
-                <GoogleButton buttonText="Sign In with Google" />
-                <AppleButton buttonText="Sign In with Apple" />
+               
+                 <GoogleButton buttonText="Sign In with Google" />
+            <AppleButton buttonText="Sign In with Apple" />
               </div>
             </form>
           </div>

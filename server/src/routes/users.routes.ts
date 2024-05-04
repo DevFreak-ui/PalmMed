@@ -1,10 +1,5 @@
 import express from "express";
-import {
-  findAll,
-  findById,
-  findMe,
-  updateUserProfile,
-} from "../controllers/users.controllers";
+import { findAll, findById, findMe, updateUserProfile } from "../controllers/users.controllers";
 import {
   createUser,
   login,
@@ -16,6 +11,7 @@ import auth from "../middlewares/auth";
 import restrictAcsessTo from "../middlewares/restrictAccessTo";
 
 const router = express.Router();
+
 
 /**
  * @swagger
@@ -40,6 +36,8 @@ const router = express.Router();
  */
 router.get("/findby/:id", auth, restrictAcsessTo("doctor"), findById);
 
+
+
 /**
  * @swagger
  * /api/v1/users/find/all:
@@ -53,6 +51,10 @@ router.get("/findby/:id", auth, restrictAcsessTo("doctor"), findById);
  *         description: Internal server error
  */
 router.get("/find/all", auth, restrictAcsessTo("doctor"), findAll);
+
+
+
+
 
 /**
  * @swagger
@@ -136,7 +138,7 @@ router.post("/register", createUser);
  *       '500':
  *         description: Internal server error
  */
-router.put("/profile", auth, updateUserProfile);
+router.patch("/profile", auth, updateUserProfile);
 
 /**
  * @swagger
