@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/center_next_button.dart';
+import 'doctor_teacher.dart';
 import 'screen_one.dart';
 import 'screen_two.dart';
 import 'screen_three.dart';
@@ -65,6 +66,7 @@ class _IntroductionAnimationScreenState
                 animationController: _animationController!,
                 onNextClick: _onNextClick,
               ),
+              // const WelcomeScreen()
             ],
           ),
         ),
@@ -113,6 +115,27 @@ class _IntroductionAnimationScreenState
   }
 
   void _signUpClick() {
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const WelcomeScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var begin = Offset(1.0, 0.0);
+          var end = Offset.zero;
+          var curve = Curves.ease;
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
+    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+    // );
   }
 }
