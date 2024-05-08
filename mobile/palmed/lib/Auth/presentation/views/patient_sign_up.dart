@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import '../../services/auth_services.dart';
-import '../widgets/custom__feild.dart';
+import '../widgets/custom_feild.dart';
+import 'patient_login.dart';
 
-import 'patient_sign_up.dart';
-
-class PatientLoginView extends StatefulWidget {
-  const PatientLoginView({super.key});
+class PatientSignUpView extends StatefulWidget {
+  const PatientSignUpView({super.key});
 
   @override
-  State<PatientLoginView> createState() => _PatientLoginViewState();
+  State<PatientSignUpView> createState() => _PatientSignUpViewState();
 }
 
-class _PatientLoginViewState extends State<PatientLoginView> {
+class _PatientSignUpViewState extends State<PatientSignUpView> {
+  late final TextEditingController _firstName;
+  late final TextEditingController _lastName;
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -21,6 +23,8 @@ class _PatientLoginViewState extends State<PatientLoginView> {
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
+    _firstName = TextEditingController();
+    _lastName = TextEditingController();
     super.initState();
   }
 
@@ -28,18 +32,27 @@ class _PatientLoginViewState extends State<PatientLoginView> {
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _firstName.dispose();
+    _lastName.dispose();
     super.dispose();
   }
 
-  Future<void> _auth(
-      {required BuildContext context,
-      required String email,
-      required String password}) async {
+  Future<void> _auth({
+    required BuildContext context,
+    required String email,
+    required String password,
+    required String firstname,
+    required String lastname,
+  }) async {
     try {
-      await Provider.of<AuthService>(context, listen: false)
-          .signInPatient(email: email, password: password);
+      await Provider.of<AuthService>(context, listen: false).signUpPatient(
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+      );
     } catch (e) {
-      print(e);
+      print("opoku $e");
     }
   }
 
@@ -56,9 +69,43 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                 SizedBox(
                   height: 70,
                 ),
-                Lottie.asset('assets/lottie/one.json', height: 300, width: 300),
+                Lottie.asset('assets/lottie/one.json', height: 100, width: 100),
                 SizedBox(
                   height: 20,
+                ),
+                TextFeildController(
+                  color: const Color.fromARGB(13, 117, 117, 117),
+                  child: TextField(
+                    controller: _firstName,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: "Enter Your First Name Here.",
+                      icon: Icon(
+                        Icons.person,
+                        color: Colors.black,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                TextFeildController(
+                  color: const Color.fromARGB(13, 117, 117, 117),
+                  child: TextField(
+                    controller: _lastName,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: "Enter Your Last Name Here.",
+                      icon: Icon(
+                        Icons.person,
+                        color: Colors.black,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                  ),
                 ),
                 TextFeildController(
                   color: const Color.fromARGB(13, 117, 117, 117),
@@ -70,7 +117,7 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                     decoration: const InputDecoration(
                       hintText: "Enter Your Email Here.",
                       icon: Icon(
-                        Icons.email,
+                        Icons.mail,
                         color: Colors.black,
                       ),
                       border: InputBorder.none,
@@ -98,7 +145,7 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                   color: Colors.black,
                   child: TextButton(
                     child: const Text(
-                      "Login",
+                      "Sign Up",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -107,10 +154,14 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                     onPressed: () async {
                       final email = _email.text;
                       final password = _password.text;
+                      final firstName = _firstName.text;
+                      final lastName = _lastName.text;
                       await _auth(
                         context: context,
                         email: email,
                         password: password,
+                        firstname: firstName,
+                        lastname: lastName,
                       );
                     },
                   ),
@@ -118,26 +169,20 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an Account ? "),
+                    const Text("Already have an Account ? "),
                     TextButton(
                       child: const Text(
-                        "Sign Up",
+                        "Login",
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PatientSignUpView()),
+                              builder: (context) => const PatientLoginView()),
                         );
                       },
                     ),
                   ],
-                ),
-                TextButton(
-                  child: const Text(
-                    "Forgot Password",
-                  ),
-                  onPressed: () {},
                 ),
               ],
             ),

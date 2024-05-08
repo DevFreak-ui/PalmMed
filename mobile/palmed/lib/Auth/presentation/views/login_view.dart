@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:palmed/Doctor/view/home.dart';
 import 'package:provider/provider.dart';
+
 import '../../services/auth_services.dart';
 import '../widgets/custom__feild.dart';
+import 'sign_up_view.dart';
 
-import 'patient_sign_up.dart';
-
-class PatientLoginView extends StatefulWidget {
-  const PatientLoginView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({
+    super.key,
+  });
 
   @override
-  State<PatientLoginView> createState() => _PatientLoginViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _PatientLoginViewState extends State<PatientLoginView> {
+class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -36,10 +39,12 @@ class _PatientLoginViewState extends State<PatientLoginView> {
       required String email,
       required String password}) async {
     try {
-      await Provider.of<AuthService>(context, listen: false)
-          .signInPatient(email: email, password: password);
+      await Provider.of<AuthService>(context, listen: false).signInPatient(
+        email: email,
+        password: password,
+      );
     } catch (e) {
-      print(e);
+      throw Exception(e);
     }
   }
 
@@ -53,11 +58,11 @@ class _PatientLoginViewState extends State<PatientLoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 70,
                 ),
                 Lottie.asset('assets/lottie/one.json', height: 300, width: 300),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFeildController(
@@ -112,6 +117,17 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                         email: email,
                         password: password,
                       );
+
+                      await Provider.of<AuthService>(context, listen: false)
+                          .userData()
+                          .whenComplete(
+                            () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DoctorHome(),
+                              ),
+                            ),
+                          );
                     },
                   ),
                 ),
@@ -127,7 +143,7 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PatientSignUpView()),
+                              builder: (context) => const SignUpView()),
                         );
                       },
                     ),

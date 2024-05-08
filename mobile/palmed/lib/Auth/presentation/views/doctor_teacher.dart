@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:palmed/Auth/presentation/views/patient_sign_up.dart';
 
 import '../widgets/custom_feild.dart';
+import 'sign_up_view.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -59,11 +61,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => const SignUpView()),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpView()),
+                        );
                       },
                     ),
                   ),
@@ -83,11 +85,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => const PatientSignUpView()),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PatientSignUpView()),
+                        );
                       },
                     ),
                   ),

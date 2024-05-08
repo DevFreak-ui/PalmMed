@@ -1,0 +1,69 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+
+        {
+            "name": "dev",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "cwd": "mobile/palmed",
+            "type": "dart",
+            "args": [
+              //  "--flavor",
+                //"dev",
+                "-t",
+                "lib/main.dart"
+            ]
+        },
+        {
+            "name": "staging",
+            "program": "lib/staging_main.dart",
+            "request": "launch",
+            "cwd": "mobile/palmed",
+            "type": "dart",
+            "args": [
+                //"--flavor",
+                //"staging",
+                "-t",
+                "lib/staging_main.dart"
+            ]
+        },
+        {
+            "name": "prod",
+            "program": "lib/prod_main.dart",
+            "request": "launch",
+            "cwd": "mobile/palmed",
+            "type": "dart",
+            "args": [
+               // "--flavor",
+                //"prod",
+                "-t",
+                "lib/prod_main.dart"
+            ]
+        },
+        {
+            "name": "palmed",
+            "cwd": "mobile/palmed",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "palmed (profile mode)",
+            "cwd": "mobile/palmed",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "palmed (release mode)",
+            "cwd": "mobile/palmed",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
