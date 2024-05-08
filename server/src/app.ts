@@ -14,12 +14,13 @@ import messages from "./routes/message.routes";
 import predictions from "./routes/predictions.routes";
 import doctors from "./routes/doctor.routes";
 import reports from "./routes/Report.routes"
+import chatV2 from "./routes/chat.v2.routes"
+import messagesV2 from "./routes/messages.v2.routes"
 
 
 dotenv.config();
 
 const app = express();
-app.use(cors())
 app.use(cors())
 
 // const limit = rateLimit({
@@ -44,6 +45,8 @@ app.use("/api/v1/messages", messages);
 app.use("/api/v1/predictions", predictions);
 app.use("/api/v1/doctors", doctors);
 app.use("/api/v1/reports", reports);
+app.use("/api/v2/chats", chatV2);
+app.use("/api/v2/messages", messagesV2);
 
 
 

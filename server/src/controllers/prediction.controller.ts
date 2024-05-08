@@ -47,6 +47,7 @@ export const predict = async (req: any, res: Response) => {
         user_id: user._id,
         ai_assisted_text: reponseData.data,
       });
+      
       if (!results) {
         return res.status(400).json({ message: "prediction failed" });
       }
