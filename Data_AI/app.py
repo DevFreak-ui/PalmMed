@@ -9,7 +9,7 @@ CORS(app)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 # Load the trained model
-model = joblib.load("random_forest_model.joblib")
+model = joblib.load("models/random_forest_model.joblib")
 
 
 @app.route("/", methods=["GET"])
