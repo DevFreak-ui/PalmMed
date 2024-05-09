@@ -7,7 +7,7 @@ import AppMail from "../services/mail/mail";
 export const createNewReport = async (req: any, res: Response) => {
   const id = req.params.id;
   try {
-    const prediction = await Prediction.findById(id);
+    const prediction = await Prediction.findById(id).populate("doctor_id").exec();
     if (!prediction) {
       return res.status(400).json({ message: "no reult found" });
     }
@@ -26,12 +26,22 @@ export const createNewReport = async (req: any, res: Response) => {
     user.reports.push(reportData._id);
     await user.save();
 
+    const age = prediction.age;
+    const gender = prediction.sex === 1 ? "Female" : "Male";
+    const doctorName = `${prediction.doctor_id.firstname} ${prediction.doctor_id.lastname}`;
+    
     new AppMail(
       user.email,
       `${user.firstname} ${user.lastname}`,
       "",
-      reportData.verdict
+      reportData.verdict,
+      doctorName,
+      age,
+      gender
+      
     ).reportMessage();
+
+  
 
     return res.status(201).json({ reportData });
   } catch (error) {
