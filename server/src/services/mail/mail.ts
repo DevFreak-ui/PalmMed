@@ -11,7 +11,10 @@ class AppMail {
     public recipientMail: string, 
     public recipientName?: string, 
     public resetUrl?: string,
-    public report?: any
+    public report?: any,
+    public doctorName?: string,
+    public userAge?: number,
+    public userGender?: string,
   ){}
 
   private template = handlebars.compile(resetTemplate);
@@ -28,6 +31,9 @@ class AppMail {
    private reportMessageToSend = this.reportTemplate({
     userName: this.recipientName,
     predictionResult : this.report,
+    doctorName: this.doctorName,
+    userAge: this.userAge,
+    userGender: this.userGender
   });
 
 
