@@ -5,7 +5,7 @@ import Bot from "../assets/images/bot.png";
 import Profile from "../assets/images/avatar.png";
 import { CiExport } from "react-icons/ci";
 import jsPDF from "jspdf";
-import { splitTextIntoLines } from "../helpers";
+import { exportChatToPDF, splitTextIntoLines } from "../helpers";
 import { IoIosSend } from "react-icons/io";
 import { useParams, useNavigate } from "react-router-dom";
 import { chatBaseURL } from "../services/baseURL";
@@ -155,31 +155,15 @@ const PalmGPTChat: React.FC = () => {
     }
   };
 
-  const exportChatToPDF = () => {
-    const doc = new jsPDF();
-    const pageWidth: number = doc.internal.pageSize.getWidth();
-    let y: number = 20; // vertical offset for elements
-
-    chatHistory.forEach((item, index) => {
-      const lines: string[] = splitTextIntoLines(
-        `${item.sender === "user" ? "Me" : "PalmMedBot"}: ${item.message}`,
-        doc,
-        pageWidth - 20
-      );
-      lines.forEach((line) => {
-        doc.text(line, 10, y);
-        y += 10;
-      });
-    });
-
-    doc.save("PalmGPT-history.pdf");
-  };
+  const exportChat = () => {
+    return exportChatToPDF(chatHistory)
+  }
 
   return (
-    <div className="w-4/5 min-h-screen mx-auto my-8 space-y-12">
+    <div className="w-4/5 min-h-screen mx-auto my-8 space-y-12 pb-12">
       {/* Export Chat Button */}
       <button
-        onClick={exportChatToPDF}
+        onClick={exportChat}
         className="border border-gray-400 px-3 py-2 w-42 rounded-lg text-sm dark:text-white fixed right-4 top-[90px] flex space-x-2 text-gray-800"
       >
         <CiExport size={18} />
