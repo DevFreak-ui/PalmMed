@@ -224,6 +224,7 @@ const PalmGPTChat: React.FC = () => {
         <button
           type="submit"
           className="bg-gray-400/50 text-white rounded-md p-2 mx-2"
+          onClick={() => handleSubmit()}
         >
           <IoIosSend size={18} />
         </button>
