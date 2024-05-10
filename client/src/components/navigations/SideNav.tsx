@@ -10,15 +10,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { baseURL, chatBaseURL } from "../../services/baseURL";
 
-
-
 const transformChats = (data: any) => {
   return data.map((item: any) => ({
     id: item._id,
-    title: item.chat_message[0]?.propmt
-
-  }))
-}
+    title: item.chat_message[0]?.propmt,
+  }));
+};
 
 const SideNav = () => {
   const [user, setUser] = useState<any>("");
@@ -52,10 +49,9 @@ const SideNav = () => {
 
     // const interval = setInterval(fetchAllChats, 5000)
     // return () => clearInterval(interval)
-
   }, [user]);
 
-  const chatsData = transformChats(chats)
+  const chatsData = transformChats(chats);
 
   return (
     <aside
@@ -78,14 +74,14 @@ const SideNav = () => {
             chatsData.map((item: any) => (
               <li key={item.id}>
                 <Link
-                    to={`/dashboard/patient/palm-gpt/${item.id}`}
-                    className="flex items-center p-2 text-base text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-300 dark:hover:bg-gray-700 group"
-                  >
-                    <span>
-                      <CiChat1 />
-                    </span>
-                    <span className="ml-4">{item.title}</span>
-                  </Link>
+                  to={`/dashboard/patient/palm-gpt/${item.id}`}
+                  className="flex items-center p-2 text-base text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-300 dark:hover:bg-gray-700 group"
+                >
+                  <span>
+                    <CiChat1 />
+                  </span>
+                  <span className="ml-4">{item.title}</span>
+                </Link>
               </li>
             ))
           ) : (
@@ -129,7 +125,7 @@ const SideNav = () => {
           </li>
           <li>
             <Link
-              to="/inbox"
+              to="/PatientAccountSettingsPage"
               className="flex items-center p-2 text-sm text-gray-900 rounded-lg dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <span>
