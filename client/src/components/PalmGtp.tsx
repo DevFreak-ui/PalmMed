@@ -176,7 +176,7 @@ const PalmGPTChat: React.FC = () => {
   };
 
   return (
-    <div className="w-4/5 min-h-screen mx-auto my-8 space-y-12">
+    <div className="w-4/5 min-h-screen mx-auto my-8 space-y-12 pb-20">
       {/* Export Chat Button */}
       <button
         onClick={exportChatToPDF}
@@ -240,6 +240,7 @@ const PalmGPTChat: React.FC = () => {
         <button
           type="submit"
           className="bg-gray-400/50 text-white rounded-md p-2 mx-2"
+          onClick={() => handleSubmit()}
         >
           <IoIosSend size={18} />
         </button>
